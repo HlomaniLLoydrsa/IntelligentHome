@@ -1,0 +1,43 @@
+{% doc %}
+  Renders a styled button or link styled as a button.
+
+  @param {string} label - The button text
+  @param {string} [url] - If provided, renders an <a> tag instead of <button>
+  @param {string} [style] - Button style variant: "primary" (default), "secondary", or "ghost"
+  @param {string} [type] - HTML button type when rendering a <button>: "button" (default), "submit"
+  @param {string} [css_class] - Additional CSS classes
+  @param {boolean} [disabled] - Whether the button is disabled
+  @param {string} [aria_label] - Accessible label if different from visible text
+
+  @example
+  {% render 'button', label: 'Add to cart', style: 'primary', type: 'submit' %}
+  {% render 'button', label: 'Shop now', url: '/collections/all', style: 'primary' %}
+  {% render 'button', label: 'Learn more', url: '/pages/about', style: 'ghost' %}
+{% enddoc %}
+
+{% liquid
+  assign btn_style = style | default: 'primary'
+  assign btn_class = 'btn btn--' | append: btn_style
+  if css_class
+    assign btn_class = btn_class | append: ' ' | append: css_class
+  endif
+%}
+
+{% if url %}
+  <a
+    href="{{ url }}"
+    class="{{ btn_class }}"
+    {% if aria_label %}aria-label="{{ aria_label }}"{% endif %}
+  >
+    {{- label -}}
+  </a>
+{% else %}
+  <button
+    type="{{ type | default: 'button' }}"
+    class="{{ btn_class }}"
+    {% if disabled %}disabled{% endif %}
+    {% if aria_label %}aria-label="{{ aria_label }}"{% endif %}
+  >
+    {{- label -}}
+  </button>
+{% endif %}

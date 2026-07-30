@@ -1,39 +1,192 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+<footer class="footer full-width">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <h3 class="footer__brand-name">{{ shop.name }}</h3>
+      {% if section.settings.brand_description != blank %}
+        <p class="footer__brand-description">{{ section.settings.brand_description | escape }}</p>
+      {% endif %}
+    </div>
+
+    <div class="footer__nav">
+      {% if section.settings.menu_1 %}
+        <div class="footer__column">
+          {% if section.settings.menu_1_title != blank %}
+            <h4 class="footer__column-title">{{ section.settings.menu_1_title | escape }}</h4>
+          {% endif %}
+          <ul class="footer__links">
+            {% for link in section.settings.menu_1.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if section.settings.menu_2 %}
+        <div class="footer__column">
+          {% if section.settings.menu_2_title != blank %}
+            <h4 class="footer__column-title">{{ section.settings.menu_2_title | escape }}</h4>
+          {% endif %}
+          <ul class="footer__links">
+            {% for link in section.settings.menu_2.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      {% if section.settings.menu_3 %}
+        <div class="footer__column">
+          {% if section.settings.menu_3_title != blank %}
+            <h4 class="footer__column-title">{{ section.settings.menu_3_title | escape }}</h4>
+          {% endif %}
+          <ul class="footer__links">
+            {% for link in section.settings.menu_3.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
   </div>
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
+  <div class="footer__bottom">
+    <div class="footer__copyright">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.rights_reserved' | t }}</p>
+    </div>
 
-  <div class="footer__payment">
     {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
+      <div class="footer__payment">
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag }}
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </footer>
 
 {% stylesheet %}
-  footer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
+  .footer {
+    background-color: var(--color-foreground);
+    color: var(--color-surface-alt);
+    padding: var(--space-4xl) var(--page-margin) var(--space-xl);
   }
-  footer a {
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    gap: var(--space-3xl);
+    max-width: var(--page-width);
+    margin: 0 auto;
+  }
+
+  .footer__brand-name {
+    font-family: var(--font-heading-family);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin: 0;
+    color: #FFFFFF;
+  }
+
+  .footer__brand-description {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin: var(--space-md) 0 0;
+    opacity: 0.8;
+    max-width: 24rem;
+  }
+
+  .footer__nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .footer__column-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-md);
+    color: #FFFFFF;
+  }
+
+  .footer__links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer__links li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer__links a {
+    font-size: var(--text-sm);
+    color: var(--color-surface-alt);
     text-decoration: none;
-    color: var(--color-foreground);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
   }
-  footer .footer__links,
-  footer .footer__payment {
+
+  .footer__links a:hover {
+    opacity: 1;
+    color: #FFFFFF;
+  }
+
+  .footer__bottom {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    max-width: var(--page-width);
+    margin: var(--space-3xl) auto 0;
+    padding-top: var(--space-xl);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .footer__copyright p {
+    font-size: var(--text-xs);
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  .footer__payment {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
+  .footer__payment svg {
+    width: 2.5rem;
+    height: auto;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 1023px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .footer__nav {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .footer {
+      padding: var(--space-3xl) var(--page-margin) var(--space-lg);
+    }
+
+    .footer__nav {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      gap: var(--space-md);
+      text-align: center;
+    }
   }
 {% endstylesheet %}
 
@@ -42,9 +195,55 @@
   "name": "t:general.footer",
   "settings": [
     {
+      "type": "header",
+      "content": "t:labels.brand"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "t:labels.description",
+      "default": "Premium kitchen and home essentials designed to simplify everyday living. Smart living starts at home."
+    },
+    {
+      "type": "header",
+      "content": "t:labels.navigation"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "t:labels.menu_1_title",
+      "default": "Shop"
+    },
+    {
       "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
+      "id": "menu_1",
+      "label": "t:labels.menu_1"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "t:labels.menu_2_title",
+      "default": "Help"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "t:labels.menu_2"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_title",
+      "label": "t:labels.menu_3_title",
+      "default": "Company"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "t:labels.menu_3"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.footer_bottom"
     },
     {
       "type": "checkbox",

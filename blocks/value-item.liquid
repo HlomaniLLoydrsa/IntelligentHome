@@ -1,0 +1,80 @@
+{% doc %}
+  Renders a value proposition item with icon, title, and description.
+  Used inside the value-propositions section.
+
+  @example
+  {% content_for 'block', type: 'value-item', id: 'quality' %}
+{% enddoc %}
+
+<div class="value-item" {{ block.shopify_attributes }}>
+  {% if block.settings.icon %}
+    <div class="value-item__icon" aria-hidden="true">
+      {{ block.settings.icon }}
+    </div>
+  {% endif %}
+  <h3 class="value-item__title">{{ block.settings.title | escape }}</h3>
+  {% if block.settings.description != blank %}
+    <p class="value-item__description">{{ block.settings.description | escape }}</p>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .value-item__icon {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+    line-height: 1;
+  }
+
+  .value-item__title {
+    font-family: var(--font-heading-family);
+    font-size: var(--text-base);
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-foreground);
+  }
+
+  .value-item__description {
+    font-size: var(--text-sm);
+    color: var(--color-secondary);
+    margin: var(--space-sm) 0 0;
+    line-height: 1.5;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.value_propositions.value_item",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "t:labels.icon",
+      "default": "✓"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.title",
+      "default": "Value"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:labels.description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.value_propositions.value_item"
+    }
+  ]
+}
+{% endschema %}

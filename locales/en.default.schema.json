@@ -33,22 +33,87 @@
     "theme": "Theme",
     "typography": "Typography"
   },
+  "sections": {
+    "hero_banner": {
+      "name": "Hero banner"
+    },
+    "featured_categories": {
+      "name": "Featured categories",
+      "shop_now": "Shop now",
+      "category": "Category"
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "view_all": "View all",
+      "example_product": "Example product"
+    },
+    "value_propositions": {
+      "name": "Value propositions",
+      "value_item": "Value item"
+    },
+    "newsletter": {
+      "name": "Newsletter"
+    },
+    "footer": {
+      "rights_reserved": "All rights reserved."
+    }
+  },
   "labels": {
     "alignment": "Alignment",
     "background": "Background",
+    "background_image": "Background image",
+    "body_font": "Body font",
+    "border_radius": "Border radius",
+    "brand": "Brand",
+    "button_colors": "Button colors",
+    "button_label": "Button label",
+    "button_link": "Button link",
+    "collection": "Collection",
+    "color_accent": "Accent",
+    "color_border": "Border",
+    "color_button_bg": "Button background",
+    "color_button_text": "Button text",
+    "color_primary": "Primary",
+    "color_secondary": "Secondary",
+    "color_surface": "Surface",
+    "color_surface_alt": "Surface alternate",
+    "customer_account_menu": "Customer account menu",
+    "description": "Description",
+    "disclaimer": "Disclaimer",
+    "footer_bottom": "Footer bottom",
     "foreground": "Foreground",
     "grid_gap": "Grid spacing",
     "grid_item_width": "Grid item width",
+    "heading": "Heading",
+    "heading_font": "Heading font",
+    "icon": "Icon",
+    "image": "Image",
     "input_corner_radius": "Input corner radius",
     "layout_direction": "Layout direction",
+    "link": "Link",
     "menu": "Menu",
-    "customer_account_menu": "Customer account menu",
+    "menu_1": "Menu 1",
+    "menu_1_title": "Menu 1 title",
+    "menu_2": "Menu 2",
+    "menu_2_title": "Menu 2 title",
+    "menu_3": "Menu 3",
+    "menu_3_title": "Menu 3 title",
+    "navigation": "Navigation",
+    "overlay_opacity": "Overlay opacity",
     "padding": "Padding",
     "page_margin": "Page margin",
     "page_width": "Page width",
+    "primary_colors": "Primary colors",
+    "primary_cta": "Primary button",
+    "products_to_show": "Products to show",
+    "secondary_cta": "Secondary button",
     "show_payment_icons": "Show payment icons",
+    "style_options": "Style options",
+    "subheading": "Subheading",
+    "surface_colors": "Surface colors",
     "text_style": "Text style",
-    "text": "Text"
+    "text": "Text",
+    "title": "Title"
   },
   "options": {
     "alignment": {
@@ -72,6 +137,6 @@
       "title": "Title",
       "subtitle": "Subtitle",
       "normal": "Normal text"
-    },
+    }
   }
 }

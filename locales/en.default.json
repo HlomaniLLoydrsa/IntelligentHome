@@ -1,8 +1,17 @@
 {
+  "general": {
+    "slogan": "Smart living starts at home.",
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "menu": "Menu",
+    "search": "Search",
+    "cart": "Cart",
+    "account": "Account"
+  },
   "404": {
-    "title": "404",
-    "not_found": "Page not found.",
-    "back_to_shopping": "Back to shopping"
+    "title": "Page not found",
+    "not_found": "The page you're looking for doesn't exist.",
+    "back_to_shopping": "Continue shopping"
   },
   "blog": {
     "article_comments": "Comments",
@@ -15,9 +24,19 @@
   },
   "cart": {
     "checkout": "Checkout",
-    "title": "Cart",
+    "title": "Your cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "empty": "Your cart is empty",
+    "continue_shopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "quantity": "Quantity"
+  },
+  "collections": {
+    "title": "Collections",
+    "all": "All products",
+    "sort_by": "Sort by",
+    "filter": "Filter"
   },
   "customers": {
     "login": {
@@ -27,9 +46,6 @@
       "title": "Login"
     }
   },
-  "collections": {
-    "title": "Collections"
-  },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
     "card": "Gift card",
@@ -38,15 +54,58 @@
     "use_at_checkout": "Use this gift card at checkout"
   },
   "password": {
-    "title": "This shop is private",
+    "title": "Opening soon",
     "password": "Password",
     "enter": "Enter"
   },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quantity": "Quantity",
+    "description": "Description",
+    "specifications": "Specifications",
+    "shipping": "Shipping & returns"
+  },
   "search": {
     "title": "Search",
-    "placeholder": "Search articles, pages, or products",
+    "placeholder": "Search products and more",
     "submit": "Search",
-    "no_results_html": "No results found for {{ terms }}",
-    "results_for_html": "{{ count }} results found for {{ terms }}"
+    "no_results_html": "No results found for \"{{ terms }}\"",
+    "results_for_html": "{{ count }} results for \"{{ terms }}\""
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to content",
+    "close_modal": "Close",
+    "open_menu": "Open navigation menu",
+    "close_menu": "Close navigation menu"
+  },
+  "sections": {
+    "hero_banner": {
+      "name": "Hero banner"
+    },
+    "featured_categories": {
+      "name": "Featured categories",
+      "shop_now": "Shop now",
+      "category": "Category"
+    },
+    "featured_collection": {
+      "name": "Featured collection",
+      "view_all": "View all",
+      "example_product": "Example product"
+    },
+    "value_propositions": {
+      "name": "Value propositions",
+      "value_item": "Value item"
+    },
+    "newsletter": {
+      "name": "Newsletter",
+      "email_label": "Email address",
+      "email_placeholder": "Enter your email",
+      "success": "Thank you for subscribing!"
+    },
+    "footer": {
+      "rights_reserved": "All rights reserved."
+    }
   }
 }

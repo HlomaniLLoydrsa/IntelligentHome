@@ -9,12 +9,99 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Smart living starts at home.",
+        "subheading": "Premium kitchen and home essentials designed to simplify everyday living.",
+        "primary_cta_label": "Shop kitchen",
+        "secondary_cta_label": "Shop cleaning"
+      }
+    },
+    "categories": {
+      "type": "featured-categories",
+      "settings": {
+        "heading": "Shop by category"
+      },
+      "blocks": {
+        "category_kitchen": {
+          "type": "category-card",
+          "settings": {
+            "title": "Kitchen accessories"
+          }
+        },
+        "category_cleaning": {
+          "type": "category-card",
+          "settings": {
+            "title": "Kitchen cleaning"
+          }
+        }
+      },
+      "block_order": ["category_kitchen", "category_cleaning"]
+    },
+    "best_sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Best sellers",
+        "products_to_show": 4
+      }
+    },
+    "value_props": {
+      "type": "value-propositions",
+      "settings": {
+        "heading": "Why choose Intelligent Home"
+      },
+      "blocks": {
+        "quality": {
+          "type": "value-item",
+          "settings": {
+            "icon": "✦",
+            "title": "Premium quality",
+            "description": "Carefully selected materials and thoughtful design in every product."
+          }
+        },
+        "shipping": {
+          "type": "value-item",
+          "settings": {
+            "icon": "⚡",
+            "title": "Fast shipping",
+            "description": "Quick and reliable delivery straight to your door."
+          }
+        },
+        "secure": {
+          "type": "value-item",
+          "settings": {
+            "icon": "🔒",
+            "title": "Secure checkout",
+            "description": "Your payment and personal information are always protected."
+          }
+        },
+        "returns": {
+          "type": "value-item",
+          "settings": {
+            "icon": "↩",
+            "title": "Easy returns",
+            "description": "Not satisfied? Return within 30 days, no questions asked."
+          }
+        }
+      },
+      "block_order": ["quality", "shipping", "secure", "returns"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Stay in the loop",
+        "description": "Subscribe for new arrivals, home tips, and exclusive offers.",
+        "button_label": "Subscribe",
+        "disclaimer": "We respect your privacy. Unsubscribe at any time."
+      }
     }
   },
   "order": [
-    "main"
+    "hero",
+    "categories",
+    "best_sellers",
+    "value_props",
+    "newsletter"
   ]
 }

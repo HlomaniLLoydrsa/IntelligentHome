@@ -8,5 +8,21 @@
  * ------------------------------------------------------------
  */
 {
-  "current": {}
+  "current": {
+    "type_heading_font": "assistant_n6",
+    "type_body_font": "work_sans_n4",
+    "max_page_width": "90rem",
+    "min_page_margin": 20,
+    "color_background": "#FAFAFA",
+    "color_foreground": "#1F2937",
+    "color_primary": "#10B981",
+    "color_secondary": "#6B7280",
+    "color_accent": "#059669",
+    "color_surface": "#FFFFFF",
+    "color_surface_alt": "#F5F5F4",
+    "color_border": "#E5E7EB",
+    "color_button_bg": "#10B981",
+    "color_button_text": "#FFFFFF",
+    "border_radius": 4
+  }
 }
