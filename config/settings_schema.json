@@ -17,7 +17,7 @@
       {
         "type": "font_picker",
         "id": "type_heading_font",
-        "default": "assistant_n6",
+        "default": "playfair_display_n7",
         "label": "t:labels.heading_font"
       },
       {
@@ -27,7 +27,7 @@
       {
         "type": "font_picker",
         "id": "type_body_font",
-        "default": "work_sans_n4",
+        "default": "inter_n4",
         "label": "t:labels.body_font"
       }
     ]
@@ -73,7 +73,7 @@
       {
         "type": "color",
         "id": "color_background",
-        "default": "#FAFAFA",
+        "default": "#FAFAF7",
         "label": "t:labels.background"
       },
       {
@@ -85,8 +85,20 @@
       {
         "type": "color",
         "id": "color_primary",
-        "default": "#10B981",
+        "default": "#2E7D32",
         "label": "t:labels.color_primary"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_dark",
+        "default": "#1B5E20",
+        "label": "t:labels.color_primary_dark"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_light",
+        "default": "#43A047",
+        "label": "t:labels.color_primary_light"
       },
       {
         "type": "color",
@@ -97,7 +109,7 @@
       {
         "type": "color",
         "id": "color_accent",
-        "default": "#059669",
+        "default": "#D4A853",
         "label": "t:labels.color_accent"
       },
       {
@@ -118,6 +130,12 @@
       },
       {
         "type": "color",
+        "id": "color_surface_brand",
+        "default": "#E8F5E9",
+        "label": "t:labels.color_surface_brand"
+      },
+      {
+        "type": "color",
         "id": "color_border",
         "default": "#E5E7EB",
         "label": "t:labels.color_border"
@@ -129,7 +147,7 @@
       {
         "type": "color",
         "id": "color_button_bg",
-        "default": "#10B981",
+        "default": "#2E7D32",
         "label": "t:labels.color_button_bg"
       },
       {
@@ -146,11 +164,11 @@
         "type": "range",
         "id": "border_radius",
         "min": 0,
-        "max": 16,
+        "max": 20,
         "step": 1,
         "unit": "px",
         "label": "t:labels.border_radius",
-        "default": 4
+        "default": 12
       }
     ]
   }

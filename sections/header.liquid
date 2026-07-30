@@ -1,13 +1,29 @@
-<header>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+<header class="header">
+  <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }}">
+    {% if section.settings.logo %}
+      <img
+        src="{{ section.settings.logo | image_url: width: 240 }}"
+        alt="{{ shop.name }}"
+        width="240"
+        height="{{ 240 | divided_by: section.settings.logo.aspect_ratio | round }}"
+        class="header__logo-image"
+      >
+    {% else %}
+      <img
+        src="{{ 'logo-intelligent-home.png' | asset_url }}"
+        alt="{{ shop.name }}"
+        width="180"
+        height="90"
+        class="header__logo-image"
+      >
+    {% endif %}
+  </a>
 
-  <div class="header__menu">
+  <nav class="header__menu" aria-label="{{ 'general.menu' | t }}">
     {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
+      <a href="{{ link.url }}" class="header__menu-link">{{ link.title }}</a>
     {% endfor %}
-  </div>
+  </nav>
 
   <div class="header__icons">
     {% if shop.customer_accounts_enabled %}
@@ -16,44 +32,116 @@
       </shopify-account>
     {% endif %}
 
-    <a href="{{ routes.cart_url }}">
-      {% if cart.item_count > 0 %}
-        <sup>{{ cart.item_count }}</sup>
-      {% endif %}
-
+    <a href="{{ routes.cart_url }}" class="header__cart" aria-label="{{ 'general.cart' | t }}">
       {{ 'icon-cart.svg' | inline_asset_content }}
+      {% if cart.item_count > 0 %}
+        <span class="header__cart-count">{{ cart.item_count }}</span>
+      {% endif %}
     </a>
   </div>
 </header>
 
 {% stylesheet %}
-  header {
+  .header {
     height: 5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-xl);
   }
-  header a {
-    position: relative;
+
+  .header__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .header__logo-image {
+    height: 56px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+  }
+
+  .header__menu {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .header__menu-link {
+    font-family: var(--font-body-family);
+    font-size: var(--text-sm);
+    font-weight: 500;
     text-decoration: none;
     color: var(--color-foreground);
+    letter-spacing: 0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .header__menu-link:hover {
+    color: var(--color-primary);
+  }
+
+  .header__icons {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .header__icons a,
+  .header__icons shopify-account {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
-  header a sup {
+
+  .header__icons a:hover,
+  .header__icons shopify-account:hover {
+    background-color: var(--color-surface-alt);
+    color: var(--color-primary);
+  }
+
+  .header__icons svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke-width: 1.5;
+  }
+
+  .header__cart-count {
     position: absolute;
-    left: 100%;
-    overflow: hidden;
-    max-width: var(--page-margin);
-  }
-  header svg {
-    width: 2rem;
-  }
-  header .header__menu,
-  header .header__icons {
+    top: 2px;
+    right: 2px;
+    min-width: 18px;
+    height: 18px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.625rem;
+    font-weight: 600;
+    border-radius: 9px;
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  @media (max-width: 767px) {
+    .header__menu {
+      display: none;
+    }
+
+    .header__logo-image {
+      height: 36px;
+      max-width: 140px;
+    }
   }
 {% endstylesheet %}
 
@@ -61,6 +149,11 @@
 {
   "name": "t:general.header",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:labels.logo"
+    },
     {
       "type": "link_list",
       "id": "menu",

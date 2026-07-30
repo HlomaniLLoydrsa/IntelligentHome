@@ -14,9 +14,10 @@
 
   {% comment %} Body font variants {% endcomment %}
   {{ settings.type_body_font | font_face: font_display: 'swap' }}
+  {{ settings.type_body_font | font_modify: 'weight', '500' | font_face: font_display: 'swap' }}
+  {{ settings.type_body_font | font_modify: 'weight', '600' | font_face: font_display: 'swap' }}
   {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_body_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
-  {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
 
   :root {
     /* Typography - Heading */
@@ -37,12 +38,15 @@
     --color-background: {{ settings.color_background }};
     --color-foreground: {{ settings.color_foreground }};
     --color-primary: {{ settings.color_primary }};
+    --color-primary-dark: {{ settings.color_primary_dark }};
+    --color-primary-light: {{ settings.color_primary_light }};
     --color-secondary: {{ settings.color_secondary }};
     --color-accent: {{ settings.color_accent }};
 
     /* Colors - Surfaces */
     --color-surface: {{ settings.color_surface }};
     --color-surface-alt: {{ settings.color_surface_alt }};
+    --color-surface-brand: {{ settings.color_surface_brand }};
     --color-border: {{ settings.color_border }};
 
     /* Colors - Buttons */
@@ -69,8 +73,8 @@
     --text-lg: 1.125rem;
     --text-xl: 1.25rem;
     --text-2xl: 1.5rem;
-    --text-3xl: 1.875rem;
-    --text-4xl: 2.25rem;
-    --text-5xl: 3rem;
+    --text-3xl: 2rem;
+    --text-4xl: 2.5rem;
+    --text-5xl: 3.25rem;
   }
 {% endstyle %}
