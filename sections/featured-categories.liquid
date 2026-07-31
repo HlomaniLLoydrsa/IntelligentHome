@@ -34,9 +34,15 @@
 
   .featured-categories__grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-xl);
     margin-top: var(--space-2xl);
+  }
+
+  @media (max-width: 1023px) {
+    .featured-categories__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 767px) {
@@ -45,8 +51,8 @@
     }
 
     .featured-categories__grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-lg);
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
     }
   }
 {% endstylesheet %}
@@ -79,13 +85,37 @@
         {
           "type": "category-card",
           "settings": {
-            "title": "Kitchen accessories"
+            "title": "Kitchen"
           }
         },
         {
           "type": "category-card",
           "settings": {
-            "title": "Kitchen cleaning"
+            "title": "Cleaning"
+          }
+        },
+        {
+          "type": "category-card",
+          "settings": {
+            "title": "Bedroom"
+          }
+        },
+        {
+          "type": "category-card",
+          "settings": {
+            "title": "Living room"
+          }
+        },
+        {
+          "type": "category-card",
+          "settings": {
+            "title": "Bathroom"
+          }
+        },
+        {
+          "type": "category-card",
+          "settings": {
+            "title": "Smart home"
           }
         }
       ]

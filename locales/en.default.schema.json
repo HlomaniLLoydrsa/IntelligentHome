@@ -47,6 +47,18 @@
       "view_all": "View all",
       "example_product": "Example product"
     },
+    "featured_collections": {
+      "name": "Featured collections",
+      "collection": "Collection"
+    },
+    "trending_products": {
+      "name": "Trending products"
+    },
+    "customer_reviews": {
+      "name": "Customer reviews",
+      "review": "Review",
+      "out_of_5": "out of 5 stars"
+    },
     "value_propositions": {
       "name": "Value propositions",
       "value_item": "Value item"
@@ -110,6 +122,9 @@
     "primary_colors": "Primary colors",
     "primary_cta": "Primary button",
     "products_to_show": "Products to show",
+    "rating": "Rating",
+    "review_text": "Review text",
+    "author": "Author",
     "secondary_cta": "Secondary button",
     "show_payment_icons": "Show payment icons",
     "style_options": "Style options",

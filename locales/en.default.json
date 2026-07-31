@@ -94,6 +94,18 @@
       "view_all": "View all",
       "example_product": "Example product"
     },
+    "featured_collections": {
+      "name": "Featured collections",
+      "collection": "Collection"
+    },
+    "trending_products": {
+      "name": "Trending products"
+    },
+    "customer_reviews": {
+      "name": "Customer reviews",
+      "review": "Review",
+      "out_of_5": "out of 5 stars"
+    },
     "value_propositions": {
       "name": "Value propositions",
       "value_item": "Value item"

@@ -24,32 +24,82 @@
         "heading": "Shop by category"
       },
       "blocks": {
-        "category_kitchen": {
+        "cat_kitchen": {
           "type": "category-card",
           "settings": {
-            "title": "Kitchen accessories"
+            "title": "Kitchen"
           }
         },
-        "category_cleaning": {
+        "cat_cleaning": {
           "type": "category-card",
           "settings": {
-            "title": "Kitchen cleaning"
+            "title": "Cleaning"
+          }
+        },
+        "cat_bedroom": {
+          "type": "category-card",
+          "settings": {
+            "title": "Bedroom"
+          }
+        },
+        "cat_living": {
+          "type": "category-card",
+          "settings": {
+            "title": "Living room"
+          }
+        },
+        "cat_bathroom": {
+          "type": "category-card",
+          "settings": {
+            "title": "Bathroom"
+          }
+        },
+        "cat_smart": {
+          "type": "category-card",
+          "settings": {
+            "title": "Smart home"
           }
         }
       },
-      "block_order": ["category_kitchen", "category_cleaning"]
+      "block_order": ["cat_kitchen", "cat_cleaning", "cat_bedroom", "cat_living", "cat_bathroom", "cat_smart"]
     },
-    "best_sellers": {
-      "type": "featured-collection",
+    "collections": {
+      "type": "featured-collections",
       "settings": {
-        "heading": "Best sellers",
-        "products_to_show": 4
-      }
+        "heading": "Featured collections"
+      },
+      "blocks": {
+        "col_kitchen": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Kitchen essentials"
+          }
+        },
+        "col_cleaning": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Cleaning essentials"
+          }
+        },
+        "col_storage": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Storage & organization"
+          }
+        },
+        "col_best": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Best sellers"
+          }
+        }
+      },
+      "block_order": ["col_kitchen", "col_cleaning", "col_storage", "col_best"]
     },
     "value_props": {
       "type": "value-propositions",
       "settings": {
-        "heading": "Why choose Intelligent Home"
+        "heading": "Why choose Intelligent Home?"
       },
       "blocks": {
         "quality": {
@@ -76,16 +126,56 @@
             "description": "Your payment and personal information are always protected."
           }
         },
-        "returns": {
+        "selected": {
           "type": "value-item",
           "settings": {
-            "icon": "↩",
-            "title": "Easy returns",
-            "description": "Not satisfied? Return within 30 days, no questions asked."
+            "icon": "✓",
+            "title": "Carefully selected products",
+            "description": "Every item is hand-picked for quality, design, and everyday practicality."
           }
         }
       },
-      "block_order": ["quality", "shipping", "secure", "returns"]
+      "block_order": ["quality", "shipping", "secure", "selected"]
+    },
+    "trending": {
+      "type": "trending-products",
+      "settings": {
+        "heading": "Trending products",
+        "products_to_show": 8
+      }
+    },
+    "reviews": {
+      "type": "customer-reviews",
+      "settings": {
+        "heading": "What our customers say"
+      },
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "The kitchen accessories are stunning. Premium feel and beautifully designed.",
+            "author": "Sarah M."
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Fast shipping and excellent quality. These cleaning tools make daily chores so much easier.",
+            "author": "James R."
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "text": "Love everything I've ordered. The attention to detail is impressive for the price.",
+            "author": "Emily T."
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"]
     },
     "newsletter": {
       "type": "newsletter",
@@ -100,8 +190,10 @@
   "order": [
     "hero",
     "categories",
-    "best_sellers",
+    "collections",
     "value_props",
+    "trending",
+    "reviews",
     "newsletter"
   ]
 }

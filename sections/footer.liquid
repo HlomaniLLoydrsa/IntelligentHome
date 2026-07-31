@@ -1,7 +1,8 @@
 <footer class="footer full-width">
   <div class="footer__inner">
     <div class="footer__brand">
-      <h3 class="footer__brand-name">{{ shop.name }}</h3>
+      <h3 class="footer__brand-name">Intelligent Home</h3>
+      <p class="footer__brand-slogan">{{ 'general.slogan' | t }}</p>
       {% if section.settings.brand_description != blank %}
         <p class="footer__brand-description">{{ section.settings.brand_description | escape }}</p>
       {% endif %}
@@ -51,7 +52,7 @@
 
   <div class="footer__bottom">
     <div class="footer__copyright">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'sections.footer.rights_reserved' | t }}</p>
+      <p>&copy; {{ 'now' | date: '%Y' }} Intelligent Home. {{ 'sections.footer.rights_reserved' | t }}</p>
     </div>
 
     {% if section.settings.show_payment_icons %}
@@ -85,6 +86,13 @@
     font-weight: 600;
     margin: 0;
     color: #FFFFFF;
+  }
+
+  .footer__brand-slogan {
+    font-size: var(--text-sm);
+    font-style: italic;
+    margin: var(--space-xs) 0 0;
+    opacity: 0.7;
   }
 
   .footer__brand-description {
@@ -223,7 +231,7 @@
       "type": "text",
       "id": "menu_2_title",
       "label": "t:labels.menu_2_title",
-      "default": "Help"
+      "default": "Customer service"
     },
     {
       "type": "link_list",
@@ -234,7 +242,7 @@
       "type": "text",
       "id": "menu_3_title",
       "label": "t:labels.menu_3_title",
-      "default": "Company"
+      "default": "About"
     },
     {
       "type": "link_list",
