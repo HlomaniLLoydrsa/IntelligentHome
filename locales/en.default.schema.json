@@ -67,11 +67,15 @@
       "name": "Newsletter"
     },
     "footer": {
-      "rights_reserved": "All rights reserved."
+      "rights_reserved": "All rights reserved.",
+      "newsletter_title": "Newsletter",
+      "newsletter_description": "Get updates on new products and exclusive offers.",
+      "subscribe": "Subscribe"
     }
   },
   "labels": {
     "alignment": "Alignment",
+    "author": "Author",
     "background": "Background",
     "background_image": "Background image",
     "body_font": "Body font",
@@ -92,6 +96,7 @@
     "color_surface": "Surface",
     "color_surface_alt": "Surface alternate",
     "color_surface_brand": "Brand surface",
+    "columns_desktop": "Columns on desktop",
     "customer_account_menu": "Customer account menu",
     "description": "Description",
     "disclaimer": "Disclaimer",
@@ -121,12 +126,21 @@
     "page_width": "Page width",
     "primary_colors": "Primary colors",
     "primary_cta": "Primary button",
+    "product_details": "Product details",
+    "products_per_page": "Products per page",
     "products_to_show": "Products to show",
     "rating": "Rating",
+    "related_products": "Related products",
+    "returns_content": "Returns content",
     "review_text": "Review text",
     "author": "Author",
     "secondary_cta": "Secondary button",
+    "shipping_content": "Shipping content",
     "show_payment_icons": "Show payment icons",
+    "show_related": "Show related products",
+    "show_social": "Show social icons",
+    "social": "Social media",
+    "specifications_content": "Specifications content",
     "style_options": "Style options",
     "subheading": "Subheading",
     "surface_colors": "Surface colors",

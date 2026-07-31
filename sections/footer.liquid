@@ -6,54 +6,96 @@
       {% if section.settings.brand_description != blank %}
         <p class="footer__brand-description">{{ section.settings.brand_description | escape }}</p>
       {% endif %}
+      {% if section.settings.show_social %}
+        <div class="footer__social">
+          {% if section.settings.social_facebook != blank %}
+            <a href="{{ section.settings.social_facebook }}" class="footer__social-link" aria-label="Facebook" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_instagram != blank %}
+            <a href="{{ section.settings.social_instagram }}" class="footer__social-link" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_twitter != blank %}
+            <a href="{{ section.settings.social_twitter }}" class="footer__social-link" aria-label="X / Twitter" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+            </a>
+          {% endif %}
+          {% if section.settings.social_tiktok != blank %}
+            <a href="{{ section.settings.social_tiktok }}" class="footer__social-link" aria-label="TikTok" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
 
-    <div class="footer__nav">
-      {% if section.settings.menu_1 %}
+    <div class="footer__columns">
+      {% if section.settings.menu_shop %}
         <div class="footer__column">
-          {% if section.settings.menu_1_title != blank %}
-            <h4 class="footer__column-title">{{ section.settings.menu_1_title | escape }}</h4>
-          {% endif %}
+          <h4 class="footer__column-title">{{ section.settings.menu_shop_title | default: 'Shop' | escape }}</h4>
           <ul class="footer__links">
-            {% for link in section.settings.menu_1.links %}
+            {% for link in section.settings.menu_shop.links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
       {% endif %}
 
-      {% if section.settings.menu_2 %}
+      {% if section.settings.menu_help %}
         <div class="footer__column">
-          {% if section.settings.menu_2_title != blank %}
-            <h4 class="footer__column-title">{{ section.settings.menu_2_title | escape }}</h4>
-          {% endif %}
+          <h4 class="footer__column-title">{{ section.settings.menu_help_title | default: 'Customer service' | escape }}</h4>
           <ul class="footer__links">
-            {% for link in section.settings.menu_2.links %}
+            {% for link in section.settings.menu_help.links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
       {% endif %}
 
-      {% if section.settings.menu_3 %}
+      {% if section.settings.menu_about %}
         <div class="footer__column">
-          {% if section.settings.menu_3_title != blank %}
-            <h4 class="footer__column-title">{{ section.settings.menu_3_title | escape }}</h4>
-          {% endif %}
+          <h4 class="footer__column-title">{{ section.settings.menu_about_title | default: 'About' | escape }}</h4>
           <ul class="footer__links">
-            {% for link in section.settings.menu_3.links %}
+            {% for link in section.settings.menu_about.links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
           </ul>
         </div>
       {% endif %}
+
+      <div class="footer__column">
+        <h4 class="footer__column-title">{{ 'sections.footer.newsletter_title' | t }}</h4>
+        <p class="footer__newsletter-text">{{ 'sections.footer.newsletter_description' | t }}</p>
+        {% form 'customer', class: 'footer__newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter,footer">
+          <div class="footer__newsletter-input-group">
+            <label for="footer-email" class="visually-hidden">{{ 'sections.newsletter.email_label' | t }}</label>
+            <input
+              type="email"
+              name="contact[email]"
+              id="footer-email"
+              placeholder="{{ 'sections.newsletter.email_placeholder' | t }}"
+              required
+              autocomplete="email"
+              class="footer__newsletter-input"
+            >
+            <button type="submit" class="footer__newsletter-btn" aria-label="{{ 'sections.footer.subscribe' | t }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+          {% if form.posted_successfully? %}
+            <p class="footer__newsletter-success">{{ 'sections.newsletter.success' | t }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
     </div>
   </div>
 
   <div class="footer__bottom">
-    <div class="footer__copyright">
-      <p>&copy; {{ 'now' | date: '%Y' }} Intelligent Home. {{ 'sections.footer.rights_reserved' | t }}</p>
-    </div>
+    <p class="footer__copyright">&copy; {{ 'now' | date: '%Y' }} Intelligent Home. {{ 'sections.footer.rights_reserved' | t }}</p>
 
     {% if section.settings.show_payment_icons %}
       <div class="footer__payment">
@@ -68,14 +110,14 @@
 {% stylesheet %}
   .footer {
     background-color: var(--color-primary-dark);
-    color: var(--color-surface-alt);
+    color: rgba(255, 255, 255, 0.85);
     padding: var(--space-4xl) var(--page-margin) var(--space-xl);
   }
 
   .footer__inner {
     display: grid;
-    grid-template-columns: 1.5fr 2fr;
-    gap: var(--space-3xl);
+    grid-template-columns: 1.2fr 2fr;
+    gap: var(--space-4xl);
     max-width: var(--page-width);
     margin: 0 auto;
   }
@@ -83,7 +125,7 @@
   .footer__brand-name {
     font-family: var(--font-heading-family);
     font-size: var(--text-xl);
-    font-weight: 600;
+    font-weight: 700;
     margin: 0;
     color: #FFFFFF;
   }
@@ -100,20 +142,45 @@
     line-height: 1.6;
     margin: var(--space-md) 0 0;
     opacity: 0.8;
-    max-width: 24rem;
+    max-width: 22rem;
   }
 
-  .footer__nav {
+  .footer__social {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .footer__social-link:hover {
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--space-xl);
   }
 
   .footer__column-title {
-    font-size: var(--text-sm);
+    font-family: var(--font-body-family);
+    font-size: var(--text-xs);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin: 0 0 var(--space-md);
     color: #FFFFFF;
   }
@@ -130,15 +197,72 @@
 
   .footer__links a {
     font-size: var(--text-sm);
-    color: var(--color-surface-alt);
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
-    opacity: 0.75;
-    transition: opacity 0.2s ease;
+    transition: color 0.2s ease;
   }
 
   .footer__links a:hover {
-    opacity: 1;
     color: #FFFFFF;
+  }
+
+  .footer__newsletter-text {
+    font-size: var(--text-sm);
+    opacity: 0.7;
+    margin: 0 0 var(--space-md);
+    line-height: 1.5;
+  }
+
+  .footer__newsletter-input-group {
+    display: flex;
+    gap: 0;
+  }
+
+  .footer__newsletter-input {
+    flex: 1;
+    min-width: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: none;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    color: #FFFFFF;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+    min-height: 40px;
+  }
+
+  .footer__newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .footer__newsletter-input:focus {
+    outline: none;
+    border-color: var(--color-primary-light);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .footer__newsletter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-light);
+    border: 1px solid var(--color-primary-light);
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    color: #FFFFFF;
+    padding: 0 var(--space-md);
+    cursor: pointer;
+    min-height: 40px;
+    transition: background-color 0.2s ease;
+  }
+
+  .footer__newsletter-btn:hover {
+    background-color: var(--color-primary);
+  }
+
+  .footer__newsletter-success {
+    font-size: var(--text-xs);
+    color: var(--color-primary-light);
+    margin-top: var(--space-sm);
   }
 
   .footer__bottom {
@@ -148,12 +272,12 @@
     max-width: var(--page-width);
     margin: var(--space-3xl) auto 0;
     padding-top: var(--space-xl);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .footer__copyright p {
+  .footer__copyright {
     font-size: var(--text-xs);
-    opacity: 0.6;
+    opacity: 0.5;
     margin: 0;
   }
 
@@ -164,9 +288,9 @@
   }
 
   .footer__payment svg {
-    width: 2.5rem;
+    width: 2.25rem;
     height: auto;
-    opacity: 0.7;
+    opacity: 0.6;
   }
 
   @media (max-width: 1023px) {
@@ -175,8 +299,9 @@
       gap: var(--space-2xl);
     }
 
-    .footer__nav {
-      grid-template-columns: repeat(3, 1fr);
+    .footer__columns {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-xl);
     }
   }
 
@@ -185,7 +310,7 @@
       padding: var(--space-3xl) var(--page-margin) var(--space-lg);
     }
 
-    .footer__nav {
+    .footer__columns {
       grid-template-columns: 1fr;
       gap: var(--space-xl);
     }
@@ -210,7 +335,7 @@
       "type": "textarea",
       "id": "brand_description",
       "label": "t:labels.description",
-      "default": "Premium kitchen and home essentials designed to simplify everyday living. Smart living starts at home."
+      "default": "Premium kitchen and home essentials designed to simplify everyday living."
     },
     {
       "type": "header",
@@ -218,36 +343,66 @@
     },
     {
       "type": "text",
-      "id": "menu_1_title",
+      "id": "menu_shop_title",
       "label": "t:labels.menu_1_title",
       "default": "Shop"
     },
     {
       "type": "link_list",
-      "id": "menu_1",
+      "id": "menu_shop",
       "label": "t:labels.menu_1"
     },
     {
       "type": "text",
-      "id": "menu_2_title",
+      "id": "menu_help_title",
       "label": "t:labels.menu_2_title",
       "default": "Customer service"
     },
     {
       "type": "link_list",
-      "id": "menu_2",
+      "id": "menu_help",
       "label": "t:labels.menu_2"
     },
     {
       "type": "text",
-      "id": "menu_3_title",
+      "id": "menu_about_title",
       "label": "t:labels.menu_3_title",
       "default": "About"
     },
     {
       "type": "link_list",
-      "id": "menu_3",
+      "id": "menu_about",
       "label": "t:labels.menu_3"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.social"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "t:labels.show_social",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "X / Twitter"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok"
     },
     {
       "type": "header",

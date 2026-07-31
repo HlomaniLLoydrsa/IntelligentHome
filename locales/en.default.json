@@ -30,13 +30,21 @@
     "empty": "Your cart is empty",
     "continue_shopping": "Continue shopping",
     "subtotal": "Subtotal",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "order_summary": "Order summary",
+    "shipping_note": "Shipping and taxes calculated at checkout.",
+    "view_cart": "View cart"
   },
   "collections": {
     "title": "Collections",
     "all": "All products",
     "sort_by": "Sort by",
-    "filter": "Filter"
+    "filter": "Filter",
+    "product_count": "{{ count }} products",
+    "products_label": "products",
+    "pagination": "Pagination",
+    "empty": "No products in this collection yet.",
+    "continue_shopping": "Continue shopping"
   },
   "customers": {
     "login": {
@@ -63,16 +71,29 @@
     "sold_out": "Sold out",
     "unavailable": "Unavailable",
     "quantity": "Quantity",
+    "quantity_decrease": "Decrease quantity",
+    "quantity_increase": "Increase quantity",
     "description": "Description",
     "specifications": "Specifications",
-    "shipping": "Shipping & returns"
+    "shipping": "Shipping & delivery",
+    "shipping_default": "Free standard shipping on orders over $50. Delivery in 3–7 business days.",
+    "returns": "Returns & exchanges",
+    "returns_default": "We accept returns within 30 days of delivery. Items must be unused and in original packaging.",
+    "related_products": "You may also like",
+    "view_image": "View image"
   },
   "search": {
     "title": "Search",
     "placeholder": "Search products and more",
     "submit": "Search",
     "no_results_html": "No results found for \"{{ terms }}\"",
-    "results_for_html": "{{ count }} results for \"{{ terms }}\""
+    "results_for_html": "{{ count }} results for \"{{ terms }}\"",
+    "type_article": "Article",
+    "type_page": "Page",
+    "suggestions_title": "Search tips:",
+    "suggestion_1": "Check your spelling",
+    "suggestion_2": "Try more general keywords",
+    "suggestion_3": "Try different keywords"
   },
   "accessibility": {
     "skip_to_content": "Skip to content",
@@ -117,7 +138,10 @@
       "success": "Thank you for subscribing!"
     },
     "footer": {
-      "rights_reserved": "All rights reserved."
+      "rights_reserved": "All rights reserved.",
+      "newsletter_title": "Newsletter",
+      "newsletter_description": "Get updates on new products and exclusive offers.",
+      "subscribe": "Subscribe"
     }
   }
 }

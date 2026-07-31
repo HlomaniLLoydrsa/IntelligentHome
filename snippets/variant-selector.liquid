@@ -1,0 +1,126 @@
+{% doc %}
+  Renders variant option selectors for a product (color swatches, size buttons, etc.).
+  Falls back to a select dropdown if more than 6 values exist for an option.
+
+  @param {product} product - The product object
+  @param {variant} current_variant - The currently selected variant
+
+  @example
+  {% render 'variant-selector', product: product, current_variant: product.selected_or_first_available_variant %}
+{% enddoc %}
+
+{% for option in product.options_with_values %}
+  <fieldset class="variant-selector">
+    <legend class="variant-selector__label">
+      {{ option.name }}:
+      <span class="variant-selector__selected">{{ option.selected_value }}</span>
+    </legend>
+
+    {% if option.values.size <= 6 %}
+      <div class="variant-selector__options">
+        {% for value in option.values %}
+          {% assign option_index = 'option' | append: option.position %}
+          <label class="variant-selector__option">
+            <input
+              type="radio"
+              name="{{ option.name }}"
+              value="{{ value | escape }}"
+              {% if value == option.selected_value %}checked{% endif %}
+              class="visually-hidden variant-selector__radio"
+              data-option-position="{{ option.position }}"
+            >
+            <span class="variant-selector__chip">{{ value | escape }}</span>
+          </label>
+        {% endfor %}
+      </div>
+    {% else %}
+      <select
+        name="{{ option.name }}"
+        class="variant-selector__select"
+        data-option-position="{{ option.position }}"
+      >
+        {% for value in option.values %}
+          <option
+            value="{{ value | escape }}"
+            {% if value == option.selected_value %}selected{% endif %}
+          >
+            {{ value | escape }}
+          </option>
+        {% endfor %}
+      </select>
+    {% endif %}
+  </fieldset>
+{% endfor %}
+
+{% stylesheet %}
+  .variant-selector {
+    border: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .variant-selector__label {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-foreground);
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+
+  .variant-selector__selected {
+    font-weight: 400;
+    color: var(--color-secondary);
+  }
+
+  .variant-selector__options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .variant-selector__option {
+    cursor: pointer;
+  }
+
+  .variant-selector__chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 var(--space-md);
+    font-size: var(--text-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    color: var(--color-foreground);
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .variant-selector__radio:checked + .variant-selector__chip {
+    border-color: var(--color-primary);
+    background-color: var(--color-surface-brand);
+    color: var(--color-primary-dark);
+    font-weight: 500;
+  }
+
+  .variant-selector__radio:focus-visible + .variant-selector__chip {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .variant-selector__option:hover .variant-selector__chip {
+    border-color: var(--color-primary-light);
+  }
+
+  .variant-selector__select {
+    width: 100%;
+    max-width: 240px;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-surface);
+    min-height: 40px;
+  }
+{% endstylesheet %}

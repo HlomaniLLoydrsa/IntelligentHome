@@ -1,0 +1,128 @@
+{% doc %}
+  Renders a quantity input with +/- buttons.
+
+  @param {number} [value] - Initial quantity value (default: 1)
+  @param {string} [name] - Input name attribute (default: "quantity")
+  @param {number} [min] - Minimum value (default: 1)
+  @param {number} [max] - Maximum value (default: 99)
+
+  @example
+  {% render 'quantity-input', value: 1, name: 'quantity' %}
+{% enddoc %}
+
+{% liquid
+  assign qty_value = value | default: 1
+  assign qty_name = name | default: 'quantity'
+  assign qty_min = min | default: 1
+  assign qty_max = max | default: 99
+%}
+
+<div class="quantity-input">
+  <button
+    type="button"
+    class="quantity-input__btn"
+    aria-label="{{ 'products.quantity_decrease' | t }}"
+    data-quantity-decrease
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+  <input
+    type="number"
+    name="{{ qty_name }}"
+    value="{{ qty_value }}"
+    min="{{ qty_min }}"
+    max="{{ qty_max }}"
+    class="quantity-input__field"
+    aria-label="{{ 'products.quantity' | t }}"
+  >
+  <button
+    type="button"
+    class="quantity-input__btn"
+    aria-label="{{ 'products.quantity_increase' | t }}"
+    data-quantity-increase
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
+</div>
+
+{% stylesheet %}
+  .quantity-input {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  .quantity-input__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-foreground);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .quantity-input__btn:hover {
+    background-color: var(--color-surface-alt);
+    color: var(--color-primary);
+  }
+
+  .quantity-input__field {
+    width: 48px;
+    height: 44px;
+    text-align: center;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    border: none;
+    border-left: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-foreground);
+    -moz-appearance: textfield;
+    padding: 0;
+  }
+
+  .quantity-input__field::-webkit-inner-spin-button,
+  .quantity-input__field::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .quantity-input__field:focus {
+    outline: none;
+    background-color: var(--color-surface-brand);
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  (function() {
+    document.querySelectorAll('.quantity-input').forEach(function(wrapper) {
+      var input = wrapper.querySelector('.quantity-input__field');
+      var decrease = wrapper.querySelector('[data-quantity-decrease]');
+      var increase = wrapper.querySelector('[data-quantity-increase]');
+      var min = parseInt(input.min) || 1;
+      var max = parseInt(input.max) || 99;
+
+      decrease.addEventListener('click', function() {
+        var val = parseInt(input.value) || min;
+        if (val > min) {
+          input.value = val - 1;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+
+      increase.addEventListener('click', function() {
+        var val = parseInt(input.value) || min;
+        if (val < max) {
+          input.value = val + 1;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+  })();
+{% endjavascript %}
