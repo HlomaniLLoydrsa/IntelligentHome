@@ -1,0 +1,57 @@
+{% doc %}
+  Renders a skeleton loading placeholder.
+  Use to show loading states before content appears.
+
+  @param {string} type - Type of skeleton: "card", "text", "image", "button"
+  @param {number} [lines] - Number of text lines for type "text" (default: 3)
+
+  @example
+  {% render 'skeleton-loader', type: 'card' %}
+  {% render 'skeleton-loader', type: 'text', lines: 2 %}
+  {% render 'skeleton-loader', type: 'image' %}
+{% enddoc %}
+
+{% liquid
+  assign skeleton_lines = lines | default: 3
+%}
+
+{% case type %}
+  {% when 'card' %}
+    <div class="skeleton-card">
+      <div class="skeleton skeleton--image"></div>
+      <div class="skeleton-card__body">
+        <div class="skeleton skeleton--text"></div>
+        <div class="skeleton skeleton--text-short"></div>
+      </div>
+    </div>
+  {% when 'text' %}
+    <div class="skeleton-text">
+      {% for i in (1..skeleton_lines) %}
+        {% if forloop.last %}
+          <div class="skeleton skeleton--text-short"></div>
+        {% else %}
+          <div class="skeleton skeleton--text"></div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% when 'image' %}
+    <div class="skeleton skeleton--image"></div>
+  {% when 'button' %}
+    <div class="skeleton skeleton--button"></div>
+{% endcase %}
+
+{% stylesheet %}
+  .skeleton-card {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .skeleton-card__body {
+    padding: var(--space-md);
+  }
+
+  .skeleton-text {
+    padding: var(--space-md) 0;
+  }
+{% endstylesheet %}

@@ -6,7 +6,7 @@
   {% content_for 'block', type: 'category-card', id: 'kitchen' %}
 {% enddoc %}
 
-<a href="{{ block.settings.url | default: '#' }}" class="category-card" {{ block.shopify_attributes }}>
+<a href="{{ block.settings.url | default: '#' }}" class="category-card" data-stagger-item {{ block.shopify_attributes }}>
   <div class="category-card__image-wrapper">
     {% if block.settings.image %}
       <img

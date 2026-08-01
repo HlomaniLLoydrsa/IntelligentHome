@@ -1,0 +1,338 @@
+{% doc %}
+  Outputs CSS animation utility classes used by motion.js.
+  Provides fade, slide, zoom, and stagger effects triggered by
+  IntersectionObserver adding the .is-visible class.
+
+  Include once in layout/theme.liquid.
+
+  Usage in templates:
+    <div data-animate>                         → fade-up
+    <div data-animate data-animate-delay="200"> → fade-up with 200ms delay
+    <div data-stagger>                         → container for staggered children
+      <div data-stagger-item>                  → each child animates sequentially
+
+  @example
+  {% render 'animation-utilities' %}
+{% enddoc %}
+
+{% style %}
+  /* ─── Scroll Progress Bar ─── */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    z-index: 9999;
+    pointer-events: none;
+    background-color: transparent;
+  }
+
+  .scroll-progress__bar {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-primary);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.1s linear;
+  }
+
+  /* ─── Reveal Animations ─── */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  [data-animate].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── Stagger Items ─── */
+  [data-stagger-item] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  [data-stagger-item].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── Lazy Image Fade-In ─── */
+  img[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  img[loading="lazy"].img--loaded,
+  img.img--loaded {
+    opacity: 1;
+  }
+
+  /* ─── Cart Badge Bounce ─── */
+  @keyframes badge-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+  }
+
+  .header__cart-badge.bounce {
+    animation: badge-bounce 0.4s ease;
+  }
+
+  /* ─── Button Press ─── */
+  .btn:active {
+    transform: scale(0.97);
+    transition-duration: 0.1s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .btn:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ─── Header Transitions ─── */
+  .header {
+    transition: background-color 0.25s ease, box-shadow 0.25s ease, height 0.25s ease;
+  }
+
+  .header--solid {
+    background-color: var(--color-surface) !important;
+  }
+
+  .header--shrink .header__inner {
+    height: 60px;
+    transition: height 0.25s ease;
+  }
+
+  .header--shrink .header__logo-image {
+    height: 40px;
+    transition: height 0.25s ease;
+  }
+
+  /* ─── Nav Link Underline Animation ─── */
+  .header__nav-link {
+    position: relative;
+  }
+
+  .header__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+  }
+
+  .header__nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Remove the old border-bottom approach */
+  .header__nav-link {
+    border-bottom: none !important;
+  }
+
+  /* ─── Card Hover Effects ─── */
+  .product-card__image-wrapper {
+    overflow: hidden;
+  }
+
+  .product-card__link:hover .product-card__image {
+    transform: scale(1.05);
+  }
+
+  .product-card__image {
+    transition: transform 0.4s ease;
+  }
+
+  .product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Category card hover */
+  .category-card__image {
+    transition: transform 0.5s ease;
+  }
+
+  .category-card:hover .category-card__image {
+    transform: scale(1.08);
+  }
+
+  .category-card__cta {
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .category-card:hover .category-card__cta {
+    transform: translateY(-2px);
+  }
+
+  /* Collection card hover */
+  .collection-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .collection-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ─── Hero Animations ─── */
+  .hero-banner__heading {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: hero-fade-up 0.8s ease 0.2s forwards;
+  }
+
+  .hero-banner__subheading {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade-up 0.8s ease 0.4s forwards;
+  }
+
+  .hero-banner__actions {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade-up 0.8s ease 0.6s forwards;
+  }
+
+  @keyframes hero-fade-up {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-banner__image {
+    transform: scale(1.05);
+    transition: transform 0.1s linear;
+  }
+
+  /* ─── Drawer Animations (already using transitions, ensure 300ms) ─── */
+  .mobile-drawer__panel {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-drawer__overlay {
+    transition: opacity 0.3s ease;
+  }
+
+  .cart-drawer__panel {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cart-drawer__overlay {
+    transition: opacity 0.3s ease;
+  }
+
+  /* ─── Predictive Search Animation ─── */
+  .predictive-search__overlay {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: opacity 0.25s ease;
+  }
+
+  .predictive-search__panel {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  /* ─── Product Gallery Crossfade ─── */
+  .product-page__image {
+    transition: opacity 0.3s ease;
+  }
+
+  .product-page__main-image:hover .product-page__image {
+    cursor: zoom-in;
+  }
+
+  /* ─── Accordion Smooth Height ─── */
+  .accordion__content {
+    animation: accordion-open 0.3s ease;
+  }
+
+  @keyframes accordion-open {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ─── Skeleton Loader ─── */
+  @keyframes skeleton-pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  .skeleton {
+    background-color: var(--color-surface-alt);
+    border-radius: var(--border-radius);
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  .skeleton--text {
+    height: 1em;
+    width: 80%;
+    margin-bottom: var(--space-sm);
+  }
+
+  .skeleton--text-short {
+    height: 1em;
+    width: 50%;
+    margin-bottom: var(--space-sm);
+  }
+
+  .skeleton--image {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+
+  .skeleton--button {
+    height: 48px;
+    width: 100%;
+  }
+
+  /* ─── Reduced Motion ─── */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    [data-animate],
+    [data-stagger-item] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    img[loading="lazy"] {
+      opacity: 1 !important;
+    }
+
+    .hero-banner__heading,
+    .hero-banner__subheading,
+    .hero-banner__actions {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+{% endstyle %}

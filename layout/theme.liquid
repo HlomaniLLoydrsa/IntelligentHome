@@ -25,12 +25,17 @@
 
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
 
+    {% render 'animation-utilities' %}
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
   </head>
 
   <body>
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress__bar" id="scroll-progress"></div>
+    </div>
+
     <a href="#main-content" class="visually-hidden">{{ 'accessibility.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}
@@ -43,5 +48,7 @@
 
     {% render 'cart-drawer' %}
     {% render 'predictive-search' %}
+
+    <script src="{{ 'motion.js' | asset_url }}" defer></script>
   </body>
 </html>

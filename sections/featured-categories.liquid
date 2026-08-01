@@ -1,4 +1,4 @@
-<section class="featured-categories">
+<section class="featured-categories" data-animate>
   {% if section.settings.heading != blank %}
     <h2 class="featured-categories__heading">{{ section.settings.heading | escape }}</h2>
   {% endif %}
@@ -7,7 +7,7 @@
     <p class="featured-categories__description">{{ section.settings.description | escape }}</p>
   {% endif %}
 
-  <div class="featured-categories__grid">
+  <div class="featured-categories__grid" data-stagger>
     {% content_for 'blocks' %}
   </div>
 </section>
