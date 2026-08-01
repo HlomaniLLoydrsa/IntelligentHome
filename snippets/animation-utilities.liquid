@@ -96,49 +96,7 @@
     transform: translateY(0) scale(0.98);
   }
 
-  /* ─── Header Transitions ─── */
-  .header {
-    transition: background-color 0.25s ease, box-shadow 0.25s ease, height 0.25s ease;
-  }
-
-  .header--solid {
-    background-color: var(--color-surface) !important;
-  }
-
-  .header--shrink .header__inner {
-    height: 60px;
-    transition: height 0.25s ease;
-  }
-
-  .header--shrink .header__logo-image {
-    height: 40px;
-    transition: height 0.25s ease;
-  }
-
-  /* ─── Nav Link Underline Animation ─── */
-  .header__nav-link {
-    position: relative;
-  }
-
-  .header__nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary);
-    transition: width 0.3s ease;
-  }
-
-  .header__nav-link:hover::after {
-    width: 100%;
-  }
-
-  /* Remove the old border-bottom approach */
-  .header__nav-link {
-    border-bottom: none !important;
-  }
+  /* ─── Header Transitions — handled by header section CSS ─── */
 
   /* ─── Card Hover Effects ─── */
   .product-card__image-wrapper {

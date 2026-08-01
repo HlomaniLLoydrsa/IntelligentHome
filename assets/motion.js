@@ -32,12 +32,12 @@
     var header = document.getElementById('site-header');
     if (!header) return;
 
-    var lastScroll = 0;
     var ticking = false;
 
     function onScroll() {
       var scrollY = window.scrollY;
 
+      // After 40px: solid bg + shadow + border + shrink
       if (scrollY > 40) {
         header.classList.add('header--solid');
         header.classList.add('header--shrink');
@@ -46,13 +46,6 @@
         header.classList.remove('header--shrink');
       }
 
-      if (scrollY > 10) {
-        header.classList.add('header--scrolled');
-      } else {
-        header.classList.remove('header--scrolled');
-      }
-
-      lastScroll = scrollY;
       ticking = false;
     }
 
@@ -63,6 +56,7 @@
       }
     }, { passive: true });
 
+    // Run once on load (in case page is already scrolled)
     onScroll();
   }
 

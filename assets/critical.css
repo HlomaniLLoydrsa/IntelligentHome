@@ -237,6 +237,18 @@ button,
 }
 
 /* ===== Section layout ===== */
+
+/* Fixed header spacer — prevents content from hiding behind the header */
+body {
+  padding-top: 80px;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 64px;
+  }
+}
+
 .shopify-section {
   --content-width: min(
     calc(var(--page-width) - var(--page-margin) * 2),
