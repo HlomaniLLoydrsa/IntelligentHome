@@ -80,6 +80,7 @@
     "returns": "Returns & exchanges",
     "returns_default": "We accept returns within 30 days of delivery. Items must be unused and in original packaging.",
     "related_products": "You may also like",
+    "recently_viewed": "Recently viewed",
     "view_image": "View image"
   },
   "search": {
@@ -100,6 +101,13 @@
     "close_modal": "Close",
     "open_menu": "Open navigation menu",
     "close_menu": "Close navigation menu"
+  },
+  "mobile_menu": {
+    "about": "About us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "track_order": "Track order",
+    "view_all": "View all"
   },
   "sections": {
     "hero_banner": {
@@ -142,6 +150,59 @@
       "newsletter_title": "Newsletter",
       "newsletter_description": "Get updates on new products and exclusive offers.",
       "subscribe": "Subscribe"
+    },
+    "faq": {
+      "name": "FAQ",
+      "title": "Frequently asked questions",
+      "still_need_help": "Still have a question?",
+      "contact_us": "Contact us"
+    },
+    "contact": {
+      "name": "Contact",
+      "title": "Get in touch",
+      "send_message": "Send us a message",
+      "name_field": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "message": "Message",
+      "submit": "Send message",
+      "success": "Thank you! We'll get back to you shortly.",
+      "contact_info": "Contact information",
+      "get_in_touch": "Get in touch",
+      "business_hours": "Business hours",
+      "follow_us": "Follow us",
+      "whatsapp_chat": "Chat on WhatsApp"
+    },
+    "about": {
+      "name": "About",
+      "our_story": "Our story",
+      "mission": "Our mission",
+      "vision": "Our vision"
+    },
+    "order_tracking": {
+      "name": "Order tracking",
+      "title": "Track your order",
+      "description": "Enter your order number and email to check your delivery status.",
+      "order_number": "Order number",
+      "email": "Email address",
+      "track": "Track order",
+      "help_text": "You can find your order number in your confirmation email."
     }
+  },
+  "chat": {
+    "open": "Open chat",
+    "need_help": "Need help?",
+    "title": "Intelligent Home Assistant",
+    "subtitle": "How can we help?",
+    "greeting": "Hi there! I'm the Intelligent Home Assistant. How can I help you today?",
+    "action_track": "Track my order",
+    "action_recommendations": "Product recommendations",
+    "action_shipping": "Shipping questions",
+    "action_returns": "Returns",
+    "action_support": "Talk to support"
+  },
+  "wishlist": {
+    "add": "Add to wishlist",
+    "remove": "Remove from wishlist"
   }
 }

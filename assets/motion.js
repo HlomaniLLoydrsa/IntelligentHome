@@ -32,13 +32,16 @@
     var header = document.getElementById('site-header');
     if (!header) return;
 
+    var lastScrollY = 0;
     var ticking = false;
+    var scrollThreshold = 40;
+    var hideThreshold = 300; // Only hide after scrolling this far
 
     function onScroll() {
       var scrollY = window.scrollY;
 
-      // After 40px: solid bg + shadow + border + shrink
-      if (scrollY > 40) {
+      // Solid + shrink after threshold
+      if (scrollY > scrollThreshold) {
         header.classList.add('header--solid');
         header.classList.add('header--shrink');
       } else {
@@ -46,6 +49,18 @@
         header.classList.remove('header--shrink');
       }
 
+      // Scroll direction: hide on down, show on up
+      if (scrollY > hideThreshold) {
+        if (scrollY > lastScrollY + 5) {
+          header.classList.add('header--hidden');
+        } else if (scrollY < lastScrollY - 5) {
+          header.classList.remove('header--hidden');
+        }
+      } else {
+        header.classList.remove('header--hidden');
+      }
+
+      lastScrollY = scrollY;
       ticking = false;
     }
 
@@ -56,7 +71,7 @@
       }
     }, { passive: true });
 
-    // Run once on load (in case page is already scrolled)
+    // Run once on load
     onScroll();
   }
 

@@ -22,12 +22,23 @@
 
     <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
       {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}" class="header__nav-link">{{ link.title }}</a>
+        {% assign is_active = false %}
+        {% if request.path == link.url %}
+          {% assign is_active = true %}
+        {% endif %}
+        {% if link.url contains request.path %}
+          {% if request.path != '/' %}
+            {% assign is_active = true %}
+          {% endif %}
+        {% endif %}
+        <a href="{{ link.url }}" class="header__nav-link {% if is_active %}header__nav-link--active{% endif %}">
+          {{ link.title }}
+        </a>
       {% endfor %}
     </nav>
 
     <div class="header__actions">
-      <a href="{{ routes.search_url }}" class="header__action" aria-label="{{ 'general.search' | t }}">
+      <a href="{{ routes.search_url }}" class="header__action header__search-trigger" aria-label="{{ 'general.search' | t }}">
         {{ 'icon-search.svg' | inline_asset_content }}
       </a>
 
@@ -59,6 +70,11 @@
   </div>
 </header>
 
+{% comment %}
+  Mobile drawer — full navigation structure.
+  Uses primary menu + a secondary "utility" menu for support links.
+  If no menus are assigned, shows sensible defaults.
+{% endcomment %}
 <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true" scroll-lock>
   <div class="mobile-drawer__overlay"></div>
   <aside class="mobile-drawer__panel" role="dialog" aria-label="{{ 'general.menu' | t }}">
@@ -68,15 +84,60 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
+
     <nav class="mobile-drawer__nav">
-      {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}" class="mobile-drawer__link">{{ link.title }}</a>
-      {% endfor %}
+      {% comment %} Primary navigation with sub-links {% endcomment %}
+      {% if section.settings.menu %}
+        {% for link in section.settings.menu.links %}
+          {% if link.links.size > 0 %}
+            <div class="mobile-drawer__group">
+              <button type="button" class="mobile-drawer__group-toggle" aria-expanded="false">
+                <span>{{ link.title }}</span>
+                <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="mobile-drawer__submenu" aria-hidden="true">
+                <a href="{{ link.url }}" class="mobile-drawer__sublink mobile-drawer__sublink--all">
+                  {{ 'mobile_menu.view_all' | t }} {{ link.title }}
+                </a>
+                {% for child in link.links %}
+                  <a href="{{ child.url }}" class="mobile-drawer__sublink">{{ child.title }}</a>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <a href="{{ link.url }}" class="mobile-drawer__link">{{ link.title }}</a>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        {% comment %} Fallback navigation when no menu is assigned {% endcomment %}
+        <a href="/collections" class="mobile-drawer__link">{{ 'collections.title' | t }}</a>
+        <a href="/collections/all" class="mobile-drawer__link">{{ 'collections.all' | t }}</a>
+      {% endif %}
     </nav>
+
+    <div class="mobile-drawer__utility">
+      {% if section.settings.drawer_menu %}
+        {% for link in section.settings.drawer_menu.links %}
+          <a href="{{ link.url }}" class="mobile-drawer__utility-link">{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="/pages/about" class="mobile-drawer__utility-link">{{ 'mobile_menu.about' | t }}</a>
+        <a href="/pages/faq" class="mobile-drawer__utility-link">{{ 'mobile_menu.faq' | t }}</a>
+        <a href="/pages/contact" class="mobile-drawer__utility-link">{{ 'mobile_menu.contact' | t }}</a>
+        <a href="/pages/track-order" class="mobile-drawer__utility-link">{{ 'mobile_menu.track_order' | t }}</a>
+      {% endif %}
+    </div>
+
     <div class="mobile-drawer__footer">
-      <a href="{{ routes.search_url }}" class="mobile-drawer__link">{{ 'general.search' | t }}</a>
+      <a href="{{ routes.search_url }}" class="mobile-drawer__footer-link">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="5.25"/><path stroke-linecap="round" d="m13 13 3.5 3.5"/></svg>
+        {{ 'general.search' | t }}
+      </a>
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="mobile-drawer__link">{{ 'general.account' | t }}</a>
+        <a href="{{ routes.account_url }}" class="mobile-drawer__footer-link">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="6.5" r="2.75"/><path stroke-linecap="round" stroke-linejoin="round" d="m5.172 14.591-.437.786a.588.588 0 0 0 .514.873h9.502a.588.588 0 0 0 .514-.873l-.437-.786a5.523 5.523 0 0 0-9.656 0"/></svg>
+          {{ 'general.account' | t }}
+        </a>
       {% endif %}
     </div>
   </aside>
@@ -84,12 +145,12 @@
 
 {% stylesheet %}
   /* ═══════════════════════════════════════════════════════
-     STICKY HEADER
-     - Fixed to top, always visible
-     - Transparent at top of page (via .header--transparent)
-     - Transitions to solid white after 40px scroll
-     - Shrinks from 80px → 68px
-     - All transitions 250ms ease
+     STICKY HEADER — Premium
+     - Fixed to top
+     - Backdrop blur (frosted glass)
+     - Transparent at top → solid after 40px
+     - Shrinks 80px → 68px
+     - Hides on scroll down, shows on scroll up
      ═══════════════════════════════════════════════════════ */
 
   .header {
@@ -104,14 +165,23 @@
     transition:
       background-color 0.25s ease,
       border-color 0.25s ease,
-      box-shadow 0.25s ease;
+      box-shadow 0.25s ease,
+      transform 0.3s ease;
+    will-change: transform;
   }
 
-  /* Solid state — after scrolling 40px */
+  /* Solid state with backdrop blur */
   .header--solid {
-    background-color: rgba(255, 255, 255, 0.98);
-    border-bottom-color: var(--color-border);
-    box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Hidden on scroll down */
+  .header--hidden {
+    transform: translateY(-100%);
   }
 
   .header__inner {
@@ -126,7 +196,6 @@
     transition: height 0.25s ease;
   }
 
-  /* Shrunk state */
   .header--shrink .header__inner {
     height: 68px;
   }
@@ -140,15 +209,15 @@
   }
 
   .header__logo-image {
-    height: 52px;
+    height: 48px;
     width: auto;
     max-width: 180px;
     object-fit: contain;
-    transition: height 0.25s ease, transform 0.25s ease;
+    transition: height 0.25s ease;
   }
 
   .header--shrink .header__logo-image {
-    height: 42px;
+    height: 40px;
   }
 
   /* Navigation */
@@ -192,6 +261,16 @@
     left: 0;
   }
 
+  /* Active page indicator */
+  .header__nav-link--active {
+    color: var(--color-primary);
+  }
+
+  .header__nav-link--active::after {
+    width: 100%;
+    left: 0;
+  }
+
   /* Action icons */
   .header__actions {
     display: flex;
@@ -210,12 +289,13 @@
     border-radius: 50%;
     text-decoration: none;
     color: var(--color-foreground);
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
 
   .header__action:hover {
     background-color: var(--color-surface-alt);
     color: var(--color-primary);
+    transform: translateY(-1px);
   }
 
   .header__actions svg {
@@ -223,7 +303,6 @@
     height: 20px;
   }
 
-  /* Cart badge */
   .header__cart-badge {
     position: absolute;
     top: 4px;
@@ -272,28 +351,18 @@
     transform-origin: center;
   }
 
-  /* Hamburger → X animation when drawer is open */
   .header__hamburger[aria-expanded="true"] .header__hamburger-line:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }
-
   .header__hamburger[aria-expanded="true"] .header__hamburger-line:nth-child(2) {
     opacity: 0;
   }
-
   .header__hamburger[aria-expanded="true"] .header__hamburger-line:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
   }
 
   /* ═══════════════════════════════════════════════════════
-     SPACER — prevents fixed header from covering content
-     ═══════════════════════════════════════════════════════ */
-  .header + * {
-    /* Handled by body padding-top below */
-  }
-
-  /* ═══════════════════════════════════════════════════════
-     MOBILE DRAWER
+     MOBILE DRAWER — Full Navigation
      ═══════════════════════════════════════════════════════ */
   .mobile-drawer {
     display: none;
@@ -310,6 +379,8 @@
     position: absolute;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -322,7 +393,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: min(320px, 85vw);
+    width: min(340px, 88vw);
     height: 100%;
     background-color: var(--color-surface);
     transform: translateX(-100%);
@@ -330,7 +401,7 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.12);
   }
 
   .mobile-drawer[open] .mobile-drawer__panel {
@@ -343,6 +414,7 @@
     justify-content: space-between;
     padding: var(--space-lg) var(--space-xl);
     border-bottom: 1px solid var(--color-border);
+    flex-shrink: 0;
   }
 
   .mobile-drawer__title {
@@ -370,49 +442,140 @@
     background-color: var(--color-surface-alt);
   }
 
+  /* Main nav links */
   .mobile-drawer__nav {
     display: flex;
     flex-direction: column;
-    padding: var(--space-md) 0;
+    padding: var(--space-sm) 0;
     flex: 1;
   }
 
   .mobile-drawer__link {
     display: block;
-    padding: var(--space-md) var(--space-xl);
+    padding: 14px var(--space-xl);
     font-size: var(--text-base);
     font-weight: 500;
     color: var(--color-foreground);
     text-decoration: none;
     transition: background-color 0.2s ease, color 0.2s ease;
-    opacity: 0;
-    transform: translateX(-10px);
   }
-
-  .mobile-drawer[open] .mobile-drawer__link {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
-  }
-
-  /* Stagger menu links */
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(1) { transition-delay: 0.05s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(2) { transition-delay: 0.1s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(3) { transition-delay: 0.15s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(4) { transition-delay: 0.2s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(5) { transition-delay: 0.25s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(6) { transition-delay: 0.3s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(7) { transition-delay: 0.35s; }
-  .mobile-drawer[open] .mobile-drawer__link:nth-child(8) { transition-delay: 0.4s; }
 
   .mobile-drawer__link:hover {
     background-color: var(--color-surface-alt);
     color: var(--color-primary);
   }
 
-  .mobile-drawer__footer {
+  /* Collapsible sub-menu groups */
+  .mobile-drawer__group {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-drawer__group:first-child {
+    border-top: none;
+  }
+
+  .mobile-drawer__group-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px var(--space-xl);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-foreground);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobile-drawer__group-toggle:hover {
+    background-color: var(--color-surface-alt);
+  }
+
+  .mobile-drawer__chevron {
+    transition: transform 0.25s ease;
+    color: var(--color-secondary);
+  }
+
+  .mobile-drawer__group-toggle[aria-expanded="true"] .mobile-drawer__chevron {
+    transform: rotate(180deg);
+  }
+
+  .mobile-drawer__submenu {
+    display: none;
+    padding: 0 0 var(--space-sm);
+  }
+
+  .mobile-drawer__submenu[aria-hidden="false"] {
+    display: block;
+  }
+
+  .mobile-drawer__sublink {
+    display: block;
+    padding: 10px var(--space-xl) 10px calc(var(--space-xl) + 16px);
+    font-size: var(--text-sm);
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .mobile-drawer__sublink:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-alt);
+  }
+
+  .mobile-drawer__sublink--all {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+
+  /* Utility links section */
+  .mobile-drawer__utility {
     border-top: 1px solid var(--color-border);
     padding: var(--space-md) 0;
+  }
+
+  .mobile-drawer__utility-link {
+    display: block;
+    padding: 10px var(--space-xl);
+    font-size: var(--text-sm);
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .mobile-drawer__utility-link:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-alt);
+  }
+
+  /* Footer of drawer */
+  .mobile-drawer__footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-md) var(--space-xl);
+    display: flex;
+    gap: var(--space-lg);
+    flex-shrink: 0;
+  }
+
+  .mobile-drawer__footer-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-drawer__footer-link:hover {
+    color: var(--color-primary);
+  }
+
+  .mobile-drawer__footer-link svg {
+    flex-shrink: 0;
   }
 
   /* ═══════════════════════════════════════════════════════
@@ -455,7 +618,8 @@
     .header__nav-link::after,
     .mobile-drawer__panel,
     .mobile-drawer__overlay,
-    .mobile-drawer__link {
+    .mobile-drawer__link,
+    .mobile-drawer__chevron {
       transition-duration: 0.01ms !important;
     }
   }
@@ -493,6 +657,18 @@
         closeDrawer();
       }
     });
+
+    // Collapsible sub-menus
+    var toggles = drawer.querySelectorAll('.mobile-drawer__group-toggle');
+    toggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        var submenu = this.nextElementSibling;
+
+        this.setAttribute('aria-expanded', !expanded);
+        submenu.setAttribute('aria-hidden', expanded);
+      });
+    });
   })();
 {% endjavascript %}
 
@@ -508,7 +684,13 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "t:labels.menu"
+      "label": "t:labels.menu",
+      "info": "t:labels.menu_info"
+    },
+    {
+      "type": "link_list",
+      "id": "drawer_menu",
+      "label": "t:labels.drawer_menu"
     },
     {
       "type": "link_list",

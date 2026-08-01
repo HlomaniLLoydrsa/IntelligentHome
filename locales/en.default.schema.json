@@ -71,6 +71,26 @@
       "newsletter_title": "Newsletter",
       "newsletter_description": "Get updates on new products and exclusive offers.",
       "subscribe": "Subscribe"
+    },
+    "faq": {
+      "name": "FAQ",
+      "category": "Category",
+      "question": "Question",
+      "question_label": "Question",
+      "answer_label": "Answer"
+    },
+    "contact": {
+      "name": "Contact",
+      "contact_info": "Contact information"
+    },
+    "about": {
+      "name": "About",
+      "our_story": "Our story",
+      "mission": "Mission",
+      "vision": "Vision"
+    },
+    "order_tracking": {
+      "name": "Order tracking"
     }
   },
   "labels": {
@@ -100,6 +120,7 @@
     "customer_account_menu": "Customer account menu",
     "description": "Description",
     "disclaimer": "Disclaimer",
+    "drawer_menu": "Mobile drawer utility links",
     "footer_bottom": "Footer bottom",
     "foreground": "Foreground",
     "grid_gap": "Grid spacing",
@@ -113,6 +134,7 @@
     "link": "Link",
     "logo": "Logo",
     "menu": "Menu",
+    "menu_info": "Supports nested sub-menus for category dropdowns in mobile drawer",
     "menu_1": "Menu 1",
     "menu_1_title": "Menu 1 title",
     "menu_2": "Menu 2",
@@ -139,6 +161,7 @@
     "show_payment_icons": "Show payment icons",
     "show_related": "Show related products",
     "show_social": "Show social icons",
+    "show_contact_cta": "Show contact button",
     "social": "Social media",
     "specifications_content": "Specifications content",
     "style_options": "Style options",

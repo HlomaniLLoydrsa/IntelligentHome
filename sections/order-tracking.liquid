@@ -1,0 +1,50 @@
+<section class="order-tracking">
+  <div class="order-tracking__header">
+    <h1 class="order-tracking__title">{{ section.settings.heading | default: 'sections.order_tracking.title' | t }}</h1>
+    <p class="order-tracking__description">{{ section.settings.description | default: 'sections.order_tracking.description' | t }}</p>
+  </div>
+
+  <div class="order-tracking__form-wrapper">
+    <form class="order-tracking__form" action="{{ routes.account_url }}" method="get">
+      <div class="order-tracking__field">
+        <label for="order-number">{{ 'sections.order_tracking.order_number' | t }}</label>
+        <input type="text" id="order-number" name="order" placeholder="#1001" required>
+      </div>
+      <div class="order-tracking__field">
+        <label for="order-email">{{ 'sections.order_tracking.email' | t }}</label>
+        <input type="email" id="order-email" name="email" placeholder="{{ 'sections.contact.email' | t }}" required autocomplete="email">
+      </div>
+      {% render 'button', label: 'sections.order_tracking.track' | t, type: 'submit', style: 'primary', css_class: 'order-tracking__btn' %}
+    </form>
+
+    <div class="order-tracking__help">
+      <p>{{ 'sections.order_tracking.help_text' | t }}</p>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .order-tracking { padding: var(--space-3xl) 0 var(--space-4xl); max-width: 28rem; margin: 0 auto; text-align: center; }
+  .order-tracking__header { margin-bottom: var(--space-2xl); }
+  .order-tracking__title { font-size: var(--text-4xl); margin: 0; }
+  .order-tracking__description { font-size: var(--text-base); color: var(--color-secondary); margin: var(--space-md) 0 0; }
+  .order-tracking__form-wrapper { background-color: var(--color-surface-alt); border-radius: var(--border-radius); padding: var(--space-2xl); }
+  .order-tracking__field { margin-bottom: var(--space-lg); text-align: left; }
+  .order-tracking__field label { display: block; font-size: var(--text-sm); font-weight: 500; margin-bottom: var(--space-xs); }
+  .order-tracking__field input { width: 100%; }
+  .order-tracking__btn { width: 100%; }
+  .order-tracking__help { margin-top: var(--space-lg); }
+  .order-tracking__help p { font-size: var(--text-sm); color: var(--color-secondary); margin: 0; }
+  @media (max-width: 767px) { .order-tracking__title { font-size: var(--text-3xl); } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.order_tracking.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:labels.heading", "default": "Track your order" },
+    { "type": "textarea", "id": "description", "label": "t:labels.description", "default": "Enter your order number and email to check your delivery status." }
+  ],
+  "presets": [{ "name": "t:sections.order_tracking.name" }]
+}
+{% endschema %}

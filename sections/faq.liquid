@@ -1,0 +1,235 @@
+<section class="faq-page">
+  <div class="faq-page__header">
+    <h1 class="faq-page__title">{{ section.settings.heading | default: 'sections.faq.title' | t }}</h1>
+    {% if section.settings.description != blank %}
+      <p class="faq-page__description">{{ section.settings.description | escape }}</p>
+    {% endif %}
+  </div>
+
+  <div class="faq-page__content">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'category' %}
+          <div class="faq-page__category" {{ block.shopify_attributes }}>
+            <h2 class="faq-page__category-title">{{ block.settings.title | escape }}</h2>
+          </div>
+        {% when 'question' %}
+          <details class="faq-item" {{ block.shopify_attributes }}>
+            <summary class="faq-item__question">
+              <span>{{ block.settings.question | escape }}</span>
+              <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-item__answer">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+      {% endcase %}
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_contact_cta %}
+    <div class="faq-page__cta">
+      <p class="faq-page__cta-text">{{ 'sections.faq.still_need_help' | t }}</p>
+      {% render 'button', label: 'sections.faq.contact_us' | t, url: '/pages/contact', style: 'primary' %}
+    </div>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+  .faq-page {
+    padding: var(--space-2xl) 0 var(--space-4xl);
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .faq-page__header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .faq-page__title {
+    font-size: var(--text-4xl);
+    margin: 0;
+    color: var(--color-foreground);
+  }
+
+  .faq-page__description {
+    font-size: var(--text-lg);
+    color: var(--color-secondary);
+    margin: var(--space-md) 0 0;
+    line-height: 1.6;
+  }
+
+  .faq-page__category {
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-page__category:first-child {
+    margin-top: 0;
+  }
+
+  .faq-page__category-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-foreground);
+    margin: 0;
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-item__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-foreground);
+    transition: color 0.2s ease;
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__question::marker {
+    display: none;
+    content: '';
+  }
+
+  .faq-item__question:hover {
+    color: var(--color-primary);
+  }
+
+  .faq-item__icon {
+    flex-shrink: 0;
+    color: var(--color-secondary);
+    transition: transform 0.25s ease;
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-item__answer {
+    padding: 0 0 var(--space-lg);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--color-secondary);
+    animation: faq-open 0.3s ease;
+  }
+
+  @keyframes faq-open {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .faq-page__cta {
+    text-align: center;
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq-page__cta-text {
+    font-size: var(--text-base);
+    color: var(--color-secondary);
+    margin: 0 0 var(--space-lg);
+  }
+
+  @media (max-width: 767px) {
+    .faq-page__title {
+      font-size: var(--text-3xl);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.faq.name",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:labels.heading",
+      "default": "Frequently asked questions"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "t:labels.description",
+      "default": "Find answers to the most common questions about our products, shipping, and returns."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_cta",
+      "label": "t:labels.show_contact_cta",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "t:sections.faq.category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:labels.title",
+          "default": "General"
+        }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "t:sections.faq.question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "t:sections.faq.question_label",
+          "default": "How long does delivery take?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "t:sections.faq.answer_label",
+          "default": "<p>Standard delivery takes 3–7 business days. Express shipping is available at checkout for 1–2 business day delivery.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.faq.name",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Shipping & delivery" } },
+        { "type": "question", "settings": { "question": "How long does delivery take?", "answer": "<p>Standard delivery takes 3–7 business days. Express shipping is available at checkout for 1–2 business day delivery.</p>" } },
+        { "type": "question", "settings": { "question": "Do you ship internationally?", "answer": "<p>Yes, we ship to most countries worldwide. International delivery typically takes 7–14 business days depending on your location.</p>" } },
+        { "type": "question", "settings": { "question": "How do I track my order?", "answer": "<p>Once your order ships, you'll receive an email with a tracking number. You can also track your order on our Track Order page.</p>" } },
+        { "type": "category", "settings": { "title": "Returns & refunds" } },
+        { "type": "question", "settings": { "question": "Can I return products?", "answer": "<p>Yes, we accept returns within 30 days of delivery. Items must be unused and in their original packaging.</p>" } },
+        { "type": "question", "settings": { "question": "How do refunds work?", "answer": "<p>Once we receive your returned item, we'll process your refund within 5–7 business days. The refund will be credited to your original payment method.</p>" } },
+        { "type": "category", "settings": { "title": "Products & support" } },
+        { "type": "question", "settings": { "question": "Do products have a warranty?", "answer": "<p>All Intelligent Home products come with a 12-month quality guarantee. If a product is defective, we'll replace it free of charge.</p>" } },
+        { "type": "question", "settings": { "question": "How do I contact support?", "answer": "<p>You can reach our support team via email, WhatsApp, or through our contact page. We typically respond within 24 hours.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

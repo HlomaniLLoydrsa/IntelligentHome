@@ -1,0 +1,78 @@
+{% doc %}
+  Renders a "Recently viewed" products section.
+  Uses localStorage to track product URLs and renders product cards.
+  Place on product pages or at the bottom of any page.
+
+  @example
+  {% render 'recently-viewed' %}
+{% enddoc %}
+
+<section class="recently-viewed" id="recently-viewed" style="display:none">
+  <h2 class="recently-viewed__heading">{{ 'products.recently_viewed' | t }}</h2>
+  <div class="recently-viewed__grid" id="recently-viewed-grid"></div>
+</section>
+
+{% stylesheet %}
+  .recently-viewed { padding: var(--space-3xl) 0; border-top: 1px solid var(--color-border); }
+  .recently-viewed__heading { font-size: var(--text-2xl); margin: 0 0 var(--space-xl); color: var(--color-foreground); }
+  .recently-viewed__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-xl); }
+  .recently-viewed__item { text-decoration: none; color: inherit; }
+  .recently-viewed__item-image { aspect-ratio: 1/1; border-radius: var(--border-radius); overflow: hidden; background-color: var(--color-surface-alt); margin-bottom: var(--space-sm); }
+  .recently-viewed__item-image img { width: 100%; height: 100%; object-fit: cover; }
+  .recently-viewed__item-title { font-size: var(--text-sm); font-weight: 500; margin: 0; }
+  .recently-viewed__item-price { font-size: var(--text-sm); color: var(--color-secondary); margin: var(--space-xs) 0 0; }
+  @media (max-width: 767px) { .recently-viewed__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); } }
+{% endstylesheet %}
+
+{% javascript %}
+  (function() {
+    var STORAGE_KEY = 'ih_recently_viewed';
+    var MAX_ITEMS = 8;
+    var DISPLAY_ITEMS = 4;
+
+    // Save current product if on a product page
+    var productData = null;
+    var productMeta = document.querySelector('[data-product-json]');
+    if (window.location.pathname.indexOf('/products/') !== -1) {
+      var title = document.querySelector('.product-page__title');
+      var price = document.querySelector('.product-page__price-regular, .product-page__price-sale');
+      var image = document.querySelector('.product-page__image');
+      if (title) {
+        productData = {
+          url: window.location.pathname,
+          title: title.textContent.trim(),
+          price: price ? price.textContent.trim() : '',
+          image: image ? image.src : ''
+        };
+      }
+    }
+
+    if (productData) {
+      var items = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      items = items.filter(function(item) { return item.url !== productData.url; });
+      items.unshift(productData);
+      if (items.length > MAX_ITEMS) items = items.slice(0, MAX_ITEMS);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    }
+
+    // Render recently viewed (exclude current page)
+    var container = document.getElementById('recently-viewed');
+    var grid = document.getElementById('recently-viewed-grid');
+    if (!container || !grid) return;
+
+    var stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    var currentPath = window.location.pathname;
+    var toShow = stored.filter(function(item) { return item.url !== currentPath; }).slice(0, DISPLAY_ITEMS);
+
+    if (toShow.length > 0) {
+      container.style.display = 'block';
+      toShow.forEach(function(item) {
+        var el = document.createElement('a');
+        el.href = item.url;
+        el.className = 'recently-viewed__item';
+        el.innerHTML = '<div class="recently-viewed__item-image">' + (item.image ? '<img src="' + item.image + '" alt="" width="300" height="300" loading="lazy">' : '') + '</div><p class="recently-viewed__item-title">' + item.title + '</p>' + (item.price ? '<p class="recently-viewed__item-price">' + item.price + '</p>' : '');
+        grid.appendChild(el);
+      });
+    }
+  })();
+{% endjavascript %}
