@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#F5F5F4"/>
+  <g transform="translate(165, 80)" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <rect x="20" y="0" width="30" height="60" rx="4"/>
+    <path d="M35 60v60"/>
+    <path d="M20 120h30"/>
+    <circle cx="35" cy="30" r="6"/>
+    <path d="M0 50l15-10M55 50l15-10"/>
+  </g>
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="600" fill="#1F2937">Cleaning</text>
+</svg>

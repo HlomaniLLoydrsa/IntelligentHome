@@ -18,23 +18,7 @@
       {% endfor %}
     </div>
   {% else %}
-    <div class="featured-collection__grid">
-      {% for i in (1..4) %}
-        <article class="product-card">
-          <div class="product-card__link">
-            <div class="product-card__image-wrapper">
-              <div class="product-card__placeholder">
-                {{ 'product-1' | placeholder_svg_tag }}
-              </div>
-            </div>
-            <div class="product-card__info">
-              <h3 class="product-card__title">{{ 'sections.featured_collection.example_product' | t }}</h3>
-              <p class="product-card__price">{{ 2999 | money }}</p>
-            </div>
-          </div>
-        </article>
-      {% endfor %}
-    </div>
+    <p class="featured-collection__empty">{{ 'sections.featured_collection.assign_collection' | t }}</p>
   {% endif %}
 </section>
 

@@ -121,14 +121,16 @@
     "featured_collection": {
       "name": "Featured collection",
       "view_all": "View all",
-      "example_product": "Example product"
+      "example_product": "Example product",
+      "assign_collection": "Assign a collection in the Theme Editor to display products here."
     },
     "featured_collections": {
       "name": "Featured collections",
       "collection": "Collection"
     },
     "trending_products": {
-      "name": "Trending products"
+      "name": "Trending products",
+      "assign_collection": "Assign a collection in the Theme Editor to display trending products."
     },
     "customer_reviews": {
       "name": "Customer reviews",

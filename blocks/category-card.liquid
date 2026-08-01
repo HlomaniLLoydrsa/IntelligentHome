@@ -19,7 +19,14 @@
       >
     {% else %}
       <div class="category-card__placeholder">
-        {{ 'collection-1' | placeholder_svg_tag }}
+        {% assign cat_handle = block.settings.title | handleize %}
+        <img
+          src="{{ 'category-' | append: cat_handle | append: '.svg' | asset_url }}"
+          alt="{{ block.settings.title | escape }}"
+          width="400"
+          height="300"
+          loading="lazy"
+        >
       </div>
     {% endif %}
   </div>

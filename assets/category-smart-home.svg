@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#F5F5F4"/>
+  <g transform="translate(155, 80)" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M45 10L10 40v60h70V40L45 10z"/>
+    <rect x="30" y="65" width="30" height="35" rx="2"/>
+    <path d="M45 50v-8"/>
+    <circle cx="45" cy="38" r="4"/>
+    <path d="M25 20c10-5 30-5 40 0"/>
+    <path d="M30 15c8-4 22-4 30 0"/>
+  </g>
+  <text x="200" y="260" text-anchor="middle" font-family="system-ui" font-size="18" font-weight="600" fill="#1F2937">Smart home</text>
+</svg>
