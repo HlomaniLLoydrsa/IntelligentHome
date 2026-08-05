@@ -172,7 +172,7 @@
       "name": "Contact",
       "title": "Get in touch",
       "send_message": "Send us a message",
-      "name_field": "Name",
+      "name_label": "Name",
       "email": "Email",
       "phone": "Phone",
       "message": "Message",
