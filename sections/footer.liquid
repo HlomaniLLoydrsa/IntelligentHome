@@ -42,18 +42,6 @@
             {% endfor %}
           </ul>
         </div>
-      {% else %}
-        <div class="footer__column">
-          <h4 class="footer__column-title">Shop</h4>
-          <ul class="footer__links">
-            <li><a href="/collections/kitchen">Kitchen</a></li>
-            <li><a href="/collections/cleaning">Cleaning</a></li>
-            <li><a href="/collections/bedroom">Bedroom</a></li>
-            <li><a href="/collections/bathroom">Bathroom</a></li>
-            <li><a href="/collections/living-room">Living Room</a></li>
-            <li><a href="/collections/smart-home">Smart Home</a></li>
-          </ul>
-        </div>
       {% endif %}
 
       {% if section.settings.menu_help %}
@@ -65,17 +53,6 @@
             {% endfor %}
           </ul>
         </div>
-      {% else %}
-        <div class="footer__column">
-          <h4 class="footer__column-title">Customer service</h4>
-          <ul class="footer__links">
-            <li><a href="/pages/faq">FAQ</a></li>
-            <li><a href="/policies/shipping-policy">Shipping</a></li>
-            <li><a href="/policies/refund-policy">Returns</a></li>
-            <li><a href="/pages/track-order">Track Order</a></li>
-            <li><a href="/pages/contact">Contact</a></li>
-          </ul>
-        </div>
       {% endif %}
 
       {% if section.settings.menu_about %}
@@ -85,16 +62,6 @@
             {% for link in section.settings.menu_about.links %}
               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
-          </ul>
-        </div>
-      {% else %}
-        <div class="footer__column">
-          <h4 class="footer__column-title">Company</h4>
-          <ul class="footer__links">
-            <li><a href="/pages/about">About Us</a></li>
-            <li><a href="/pages/contact">Contact</a></li>
-            <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
-            <li><a href="/policies/terms-of-service">Terms of Service</a></li>
           </ul>
         </div>
       {% endif %}

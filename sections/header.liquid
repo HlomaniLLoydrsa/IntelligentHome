@@ -21,30 +21,20 @@
     </a>
 
     <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
-      {% if section.settings.menu %}
-        {% for link in section.settings.menu.links %}
-          {% assign is_active = false %}
-          {% if request.path == link.url %}
+      {% for link in section.settings.menu.links %}
+        {% assign is_active = false %}
+        {% if request.path == link.url %}
+          {% assign is_active = true %}
+        {% endif %}
+        {% if link.url contains request.path %}
+          {% if request.path != '/' %}
             {% assign is_active = true %}
           {% endif %}
-          {% if link.url contains request.path %}
-            {% if request.path != '/' %}
-              {% assign is_active = true %}
-            {% endif %}
-          {% endif %}
-          <a href="{{ link.url }}" class="header__nav-link {% if is_active %}header__nav-link--active{% endif %}">
-            {{ link.title }}
-          </a>
-        {% endfor %}
-      {% else %}
-        <a href="/" class="header__nav-link {% if request.path == '/' %}header__nav-link--active{% endif %}">Home</a>
-        <a href="/collections/kitchen" class="header__nav-link {% if request.path contains 'kitchen' %}header__nav-link--active{% endif %}">Kitchen</a>
-        <a href="/collections/cleaning" class="header__nav-link {% if request.path contains 'cleaning' %}header__nav-link--active{% endif %}">Cleaning</a>
-        <a href="/collections/bedroom" class="header__nav-link {% if request.path contains 'bedroom' %}header__nav-link--active{% endif %}">Bedroom</a>
-        <a href="/collections/bathroom" class="header__nav-link {% if request.path contains 'bathroom' %}header__nav-link--active{% endif %}">Bathroom</a>
-        <a href="/collections/living-room" class="header__nav-link {% if request.path contains 'living-room' %}header__nav-link--active{% endif %}">Living Room</a>
-        <a href="/collections" class="header__nav-link {% if request.path == '/collections' %}header__nav-link--active{% endif %}">Collections</a>
-      {% endif %}
+        {% endif %}
+        <a href="{{ link.url }}" class="header__nav-link {% if is_active %}header__nav-link--active{% endif %}">
+          {{ link.title }}
+        </a>
+      {% endfor %}
     </nav>
 
     <div class="header__actions">
@@ -120,27 +110,8 @@
         {% endfor %}
       {% else %}
         {% comment %} Fallback navigation when no menu is assigned {% endcomment %}
-        <a href="/" class="mobile-drawer__link">Home</a>
-
-        <div class="mobile-drawer__group">
-          <button type="button" class="mobile-drawer__group-toggle" aria-expanded="false">
-            <span>Shop</span>
-            <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="mobile-drawer__submenu" aria-hidden="true">
-            <a href="/collections/all" class="mobile-drawer__sublink mobile-drawer__sublink--all">View all products</a>
-            <a href="/collections/kitchen" class="mobile-drawer__sublink">Kitchen</a>
-            <a href="/collections/cleaning" class="mobile-drawer__sublink">Cleaning</a>
-            <a href="/collections/bedroom" class="mobile-drawer__sublink">Bedroom</a>
-            <a href="/collections/bathroom" class="mobile-drawer__sublink">Bathroom</a>
-            <a href="/collections/living-room" class="mobile-drawer__sublink">Living Room</a>
-            <a href="/collections/smart-home" class="mobile-drawer__sublink">Smart Home</a>
-          </div>
-        </div>
-
-        <a href="/collections" class="mobile-drawer__link">Collections</a>
-        <a href="/collections/new-arrivals" class="mobile-drawer__link">New Arrivals</a>
-        <a href="/collections/best-sellers" class="mobile-drawer__link">Best Sellers</a>
+        <a href="/collections" class="mobile-drawer__link">{{ 'collections.title' | t }}</a>
+        <a href="/collections/all" class="mobile-drawer__link">{{ 'collections.all' | t }}</a>
       {% endif %}
     </nav>
 
