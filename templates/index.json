@@ -12,95 +12,135 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
+        "background_image": "shopify://shop_images/d56d7bb2-13f2-45a6-a108-a4a1f5c39893_afc4704b-d2a8-4e82-af82-e477e9227f7b.png",
+        "overlay_opacity": 15,
         "heading": "Smart living starts at home.",
         "subheading": "Premium kitchen and home essentials designed to simplify everyday living.",
         "primary_cta_label": "Shop kitchen",
-        "secondary_cta_label": "Shop cleaning"
+        "primary_cta_url": "",
+        "secondary_cta_label": "Shop cleaning",
+        "secondary_cta_url": ""
       }
     },
     "categories": {
       "type": "featured-categories",
-      "settings": {
-        "heading": "Shop by category"
-      },
       "blocks": {
         "cat_kitchen": {
           "type": "category-card",
           "settings": {
-            "title": "Kitchen"
-          }
+            "title": "Kitchen",
+            "image": "shopify://shop_images/images_8.jpg",
+            "url": ""
+          },
+          "blocks": {}
         },
         "cat_cleaning": {
           "type": "category-card",
           "settings": {
-            "title": "Cleaning"
-          }
+            "title": "Cleaning",
+            "image": "shopify://shop_images/4A83A919-5353-4905-B8E8A4C0E2F4CC35_1.jpg",
+            "url": ""
+          },
+          "blocks": {}
         },
         "cat_bedroom": {
           "type": "category-card",
           "settings": {
-            "title": "Bedroom"
-          }
+            "title": "Bedroom",
+            "image": "shopify://shop_images/luxury-hotel-room.jpg",
+            "url": ""
+          },
+          "blocks": {}
         },
         "cat_living": {
           "type": "category-card",
           "settings": {
-            "title": "Living room"
-          }
+            "title": "Living room",
+            "image": "shopify://shop_images/Our-Real-Living-RoombrDesign-Makeovers.jpg",
+            "url": ""
+          },
+          "blocks": {}
         },
         "cat_bathroom": {
           "type": "category-card",
           "settings": {
-            "title": "Bathroom"
-          }
+            "title": "Bathroom",
+            "image": "shopify://shop_images/whealon-dixon-north-carolina-mountain-house-owners-bath-648a212a04dab.jpg",
+            "url": ""
+          },
+          "blocks": {}
         },
         "cat_smart": {
           "type": "category-card",
           "settings": {
-            "title": "Smart home"
-          }
+            "title": "Smart home",
+            "image": "shopify://shop_images/ae30a5b9-8840-46bf-a5c8-ac4d7858f779.png",
+            "url": ""
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["cat_kitchen", "cat_cleaning", "cat_bedroom", "cat_living", "cat_bathroom", "cat_smart"]
+      "block_order": [
+        "cat_kitchen",
+        "cat_cleaning",
+        "cat_bedroom",
+        "cat_living",
+        "cat_bathroom",
+        "cat_smart"
+      ],
+      "settings": {
+        "heading": "Shop by category",
+        "description": ""
+      }
     },
     "collections": {
       "type": "featured-collections",
-      "settings": {
-        "heading": "Featured collections"
-      },
       "blocks": {
         "col_kitchen": {
           "type": "collection_card",
           "settings": {
-            "title": "Kitchen essentials"
+            "collection": "",
+            "title": "Kitchen essentials",
+            "image": "shopify://shop_images/2f8fc543-f037-4ef5-bb65-208a9ebaf7d7.png"
           }
         },
         "col_cleaning": {
           "type": "collection_card",
           "settings": {
-            "title": "Cleaning essentials"
+            "collection": "",
+            "title": "Cleaning essentials",
+            "image": "shopify://shop_images/7543a28d-88d2-41a5-b4b9-96150dbc8aa6_1.png"
           }
         },
         "col_storage": {
           "type": "collection_card",
           "settings": {
-            "title": "Storage & organization"
+            "collection": "",
+            "title": "Storage & organization",
+            "image": "shopify://shop_images/036a3fbb-7ca7-47c8-a0bb-7a3cb0cf990f.png"
           }
         },
         "col_best": {
           "type": "collection_card",
           "settings": {
-            "title": "Best sellers"
+            "collection": "",
+            "title": "Best sellers",
+            "image": "shopify://shop_images/c7ad176e-622b-4feb-9d6a-c2ac46cd2b76.png"
           }
         }
       },
-      "block_order": ["col_kitchen", "col_cleaning", "col_storage", "col_best"]
+      "block_order": [
+        "col_kitchen",
+        "col_cleaning",
+        "col_storage",
+        "col_best"
+      ],
+      "settings": {
+        "heading": "Featured collections"
+      }
     },
     "value_props": {
       "type": "value-propositions",
-      "settings": {
-        "heading": "Why choose Intelligent Home?"
-      },
       "blocks": {
         "quality": {
           "type": "value-item",
@@ -108,7 +148,8 @@
             "icon": "✦",
             "title": "Premium quality",
             "description": "Carefully selected materials and thoughtful design in every product."
-          }
+          },
+          "blocks": {}
         },
         "shipping": {
           "type": "value-item",
@@ -116,7 +157,8 @@
             "icon": "⚡",
             "title": "Fast shipping",
             "description": "Quick and reliable delivery straight to your door."
-          }
+          },
+          "blocks": {}
         },
         "secure": {
           "type": "value-item",
@@ -124,7 +166,8 @@
             "icon": "🔒",
             "title": "Secure checkout",
             "description": "Your payment and personal information are always protected."
-          }
+          },
+          "blocks": {}
         },
         "selected": {
           "type": "value-item",
@@ -132,23 +175,30 @@
             "icon": "✓",
             "title": "Carefully selected products",
             "description": "Every item is hand-picked for quality, design, and everyday practicality."
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["quality", "shipping", "secure", "selected"]
+      "block_order": [
+        "quality",
+        "shipping",
+        "secure",
+        "selected"
+      ],
+      "settings": {
+        "heading": "Why choose Intelligent Home?"
+      }
     },
     "trending": {
       "type": "trending-products",
       "settings": {
         "heading": "Trending products",
+        "collection": "",
         "products_to_show": 8
       }
     },
     "reviews": {
       "type": "customer-reviews",
-      "settings": {
-        "heading": "What our customers say"
-      },
       "blocks": {
         "review_1": {
           "type": "review",
@@ -175,7 +225,14 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"]
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "heading": "What our customers say"
+      }
     },
     "newsletter": {
       "type": "newsletter",
