@@ -66,10 +66,14 @@
       </div>
 
       <div class="product-page__actions">
+        {% liquid
+          assign add_to_cart_label = 'products.add_to_cart' | t
+          assign sold_out_label = 'products.sold_out' | t
+        %}
         {% if current_variant.available %}
-          {% render 'button', label: 'products.add_to_cart' | t, type: 'submit', style: 'primary', css_class: 'product-page__add-btn' %}
+          {% render 'button', label: add_to_cart_label, type: 'submit', style: 'primary', css_class: 'product-page__add-btn' %}
         {% else %}
-          {% render 'button', label: 'products.sold_out' | t, type: 'button', style: 'primary', disabled: true, css_class: 'product-page__add-btn' %}
+          {% render 'button', label: sold_out_label, type: 'button', style: 'primary', disabled: true, css_class: 'product-page__add-btn' %}
         {% endif %}
 
         {{ form | payment_button }}
@@ -77,32 +81,55 @@
     {% endform %}
 
     <div class="product-page__accordions">
+      {% liquid
+        assign desc_title = 'products.description' | t
+        assign specs_title = 'products.specifications' | t
+        assign shipping_title = 'products.shipping' | t
+        assign returns_title = 'products.returns' | t
+        assign shipping_body = section.settings.shipping_content
+        unless shipping_body
+          assign shipping_body = 'products.shipping_default' | t
+        endunless
+        assign returns_body = section.settings.returns_content
+        unless returns_body
+          assign returns_body = 'products.returns_default' | t
+        endunless
+      %}
       {% if product.description != blank %}
-        {% render 'accordion', title: 'products.description' | t, content: product.description, open: true %}
+        {% render 'accordion', title: desc_title, content: product.description, open: true %}
       {% endif %}
 
       {% if section.settings.specs_content != blank %}
-        {% render 'accordion', title: 'products.specifications' | t, content: section.settings.specs_content %}
+        {% render 'accordion', title: specs_title, content: section.settings.specs_content %}
       {% endif %}
 
-      {% render 'accordion', title: 'products.shipping' | t, content: section.settings.shipping_content | default: 'products.shipping_default' | t %}
+      {% render 'accordion', title: shipping_title, content: shipping_body %}
 
-      {% render 'accordion', title: 'products.returns' | t, content: section.settings.returns_content | default: 'products.returns_default' | t %}
+      {% render 'accordion', title: returns_title, content: returns_body %}
     </div>
   </div>
 </section>
 
 {% if section.settings.show_related %}
-  <section class="product-page__related">
-    <h2 class="product-page__related-heading">{{ 'products.related_products' | t }}</h2>
-    <div class="product-page__related-grid">
-      {% assign related = collection.products | where: 'available', true %}
-      {% for rel_product in related limit: 4 %}
-        {% if rel_product.id != product.id %}
-          {% render 'product-card', product: rel_product, lazy: true %}
-        {% endif %}
-      {% endfor %}
-    </div>
+  {% comment %}
+    Shopify native product recommendations.
+    Uses the Section Rendering API + recommendations object so it works on
+    every product page (not just when arriving from a collection).
+  {% endcomment %}
+  <section
+    class="product-page__related"
+    id="product-recommendations"
+    data-product-id="{{ product.id }}"
+    data-recommendations-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.related_count }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <h2 class="product-page__related-heading">{{ 'products.related_products' | t }}</h2>
+      <div class="product-page__related-grid">
+        {% for rec_product in recommendations.products %}
+          {% render 'product-card', product: rec_product, lazy: true %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </section>
 {% endif %}
 
@@ -306,6 +333,24 @@
         mainImage.alt = thumb.dataset.imageAlt;
       });
     });
+
+    // Load Shopify native product recommendations
+    var recSection = document.getElementById('product-recommendations');
+    if (recSection && recSection.dataset.recommendationsUrl) {
+      // Only fetch if not already server-rendered
+      if (!recSection.querySelector('.product-page__related-grid')) {
+        fetch(recSection.dataset.recommendationsUrl)
+          .then(function(response) { return response.text(); })
+          .then(function(text) {
+            var html = new DOMParser().parseFromString(text, 'text/html');
+            var recommendations = html.querySelector('#product-recommendations');
+            if (recommendations && recommendations.innerHTML.trim().length) {
+              recSection.innerHTML = recommendations.innerHTML;
+            }
+          })
+          .catch(function() { /* fail silently — recommendations are non-critical */ });
+      }
+    }
   })();
 {% endjavascript %}
 
@@ -341,6 +386,15 @@
       "id": "show_related",
       "label": "t:labels.show_related",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "related_count",
+      "label": "t:labels.related_count",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 4
     }
   ],
   "disabled_on": {

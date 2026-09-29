@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "returns-info",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

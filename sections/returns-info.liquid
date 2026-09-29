@@ -1,0 +1,67 @@
+<section class="info-page">
+  <div class="info-page__header">
+    <h1 class="info-page__title">{{ section.settings.heading | default: 'sections.returns_info.title' | t }}</h1>
+    {% if section.settings.description != blank %}
+      <p class="info-page__description">{{ section.settings.description | escape }}</p>
+    {% endif %}
+  </div>
+
+  <div class="info-page__content">
+    {% for block in section.blocks %}
+      <div class="info-page__block" {{ block.shopify_attributes }}>
+        {% if block.settings.title != blank %}
+          <h2>{{ block.settings.title | escape }}</h2>
+        {% endif %}
+        <div class="info-page__text">{{ block.settings.content }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% if section.settings.show_cta %}
+    {% liquid
+      assign returns_cta_label = section.settings.cta_label | default: 'Start a return'
+      assign returns_cta_url = section.settings.cta_url | default: '/pages/contact'
+    %}
+    <div class="info-page__cta">
+      {% render 'button', label: returns_cta_label, url: returns_cta_url, style: 'primary' %}
+    </div>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+  .info-page__cta { margin-top: var(--space-2xl); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.returns_info.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:labels.heading", "default": "Returns & refunds" },
+    { "type": "textarea", "id": "description", "label": "t:labels.description", "default": "Not completely satisfied? Here's how our hassle-free returns work." },
+    { "type": "checkbox", "id": "show_cta", "label": "t:labels.show_contact_cta", "default": true },
+    { "type": "text", "id": "cta_label", "label": "t:labels.button_label", "default": "Start a return" },
+    { "type": "url", "id": "cta_url", "label": "t:labels.button_link" }
+  ],
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "t:general.content",
+      "settings": [
+        { "type": "text", "id": "title", "label": "t:labels.title" },
+        { "type": "richtext", "id": "content", "label": "t:general.content" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.returns_info.name",
+      "blocks": [
+        { "type": "content_block", "settings": { "title": "30-day returns", "content": "<p>We accept returns within 30 days of delivery. Items must be unused, in their original condition, and in the original packaging.</p>" } },
+        { "type": "content_block", "settings": { "title": "How to return", "content": "<p>Contact our support team with your order number to start a return. We'll send you a prepaid shipping label and instructions.</p>" } },
+        { "type": "content_block", "settings": { "title": "Refunds", "content": "<p>Once we receive and inspect your return, we'll process your refund within 5-7 business days to your original payment method.</p>" } },
+        { "type": "content_block", "settings": { "title": "Exchanges", "content": "<p>Want a different size or color? Start a return and place a new order, or contact us and we'll help arrange an exchange.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

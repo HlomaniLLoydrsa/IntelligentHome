@@ -30,7 +30,8 @@
   {% if section.settings.show_contact_cta %}
     <div class="faq-page__cta">
       <p class="faq-page__cta-text">{{ 'sections.faq.still_need_help' | t }}</p>
-      {% render 'button', label: 'sections.faq.contact_us' | t, url: '/pages/contact', style: 'primary' %}
+      {% assign faq_contact_label = 'sections.faq.contact_us' | t %}
+      {% render 'button', label: faq_contact_label, url: '/pages/contact', style: 'primary' %}
     </div>
   {% endif %}
 </section>

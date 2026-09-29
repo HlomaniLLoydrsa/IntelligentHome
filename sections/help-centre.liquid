@@ -1,0 +1,70 @@
+<section class="help-centre">
+  <div class="help-centre__header">
+    <h1 class="help-centre__title">{{ section.settings.heading | default: 'sections.help_centre.title' | t }}</h1>
+    {% if section.settings.description != blank %}
+      <p class="help-centre__description">{{ section.settings.description | escape }}</p>
+    {% endif %}
+  </div>
+
+  <div class="help-centre__grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.url | default: '#' }}" class="help-card" {{ block.shopify_attributes }}>
+        <div class="help-card__icon" aria-hidden="true">{{ block.settings.icon | default: '?' }}</div>
+        <h2 class="help-card__title">{{ block.settings.title | escape }}</h2>
+        {% if block.settings.description != blank %}
+          <p class="help-card__description">{{ block.settings.description | escape }}</p>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .help-centre { padding: var(--space-2xl) 0 var(--space-4xl); }
+  .help-centre__header { text-align: center; margin-bottom: var(--space-3xl); }
+  .help-centre__title { font-size: var(--text-4xl); margin: 0; color: var(--color-foreground); }
+  .help-centre__description { font-size: var(--text-lg); color: var(--color-secondary); margin: var(--space-md) 0 0; }
+  .help-centre__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
+  .help-card { display: flex; flex-direction: column; align-items: flex-start; padding: var(--space-xl); border: 1px solid var(--color-border); border-radius: var(--border-radius); text-decoration: none; color: inherit; background-color: var(--color-surface); transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease; }
+  .help-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.06); transform: translateY(-4px); border-color: var(--color-primary-light); }
+  .help-card__icon { font-size: var(--text-2xl); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background-color: var(--color-surface-brand); border-radius: 50%; margin-bottom: var(--space-md); }
+  .help-card__title { font-family: var(--font-heading-family); font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--space-xs); color: var(--color-foreground); }
+  .help-card__description { font-size: var(--text-sm); color: var(--color-secondary); margin: 0; line-height: 1.5; }
+  @media (max-width: 1023px) { .help-centre__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 767px) { .help-centre { padding: var(--space-xl) 0 var(--space-3xl); } .help-centre__title { font-size: var(--text-3xl); } .help-centre__grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.help_centre.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:labels.heading", "default": "How can we help?" },
+    { "type": "textarea", "id": "description", "label": "t:labels.description", "default": "Find answers, track your order, or get in touch with our team." }
+  ],
+  "blocks": [
+    {
+      "type": "help_card",
+      "name": "t:sections.help_centre.card",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "t:labels.icon", "default": "?" },
+        { "type": "text", "id": "title", "label": "t:labels.title", "default": "Help topic" },
+        { "type": "textarea", "id": "description", "label": "t:labels.description" },
+        { "type": "url", "id": "url", "label": "t:labels.link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.help_centre.name",
+      "blocks": [
+        { "type": "help_card", "settings": { "icon": "\u2753", "title": "FAQ", "description": "Answers to common questions.", "url": "/pages/faq" } },
+        { "type": "help_card", "settings": { "icon": "\ud83d\udce6", "title": "Track your order", "description": "Check the status of your delivery.", "url": "/pages/track-order" } },
+        { "type": "help_card", "settings": { "icon": "\ud83d\ude9a", "title": "Shipping & delivery", "description": "Delivery times and costs.", "url": "/pages/shipping" } },
+        { "type": "help_card", "settings": { "icon": "\u21a9\ufe0f", "title": "Returns & refunds", "description": "How to return an item.", "url": "/pages/returns" } },
+        { "type": "help_card", "settings": { "icon": "\u2709\ufe0f", "title": "Contact us", "description": "Get in touch with support.", "url": "/pages/contact" } },
+        { "type": "help_card", "settings": { "icon": "\ud83d\udd12", "title": "Privacy & terms", "description": "Our store policies.", "url": "/policies/privacy-policy" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

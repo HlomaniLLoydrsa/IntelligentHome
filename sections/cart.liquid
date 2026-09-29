@@ -46,7 +46,8 @@
           {% endfor %}
 
           <div class="cart-page__update">
-            {% render 'button', label: 'cart.update' | t, type: 'submit', style: 'ghost' %}
+            {% assign update_label = 'cart.update' | t %}
+            {% render 'button', label: update_label, type: 'submit', style: 'ghost' %}
           </div>
         </form>
       </div>
@@ -62,7 +63,8 @@
         <p class="cart-page__shipping-note">{{ 'cart.shipping_note' | t }}</p>
 
         <div class="cart-page__checkout">
-          {% render 'button', label: 'cart.checkout' | t, url: '/checkout', style: 'primary', css_class: 'cart-page__checkout-btn' %}
+          {% assign checkout_label = 'cart.checkout' | t %}
+          {% render 'button', label: checkout_label, url: '/checkout', style: 'primary', css_class: 'cart-page__checkout-btn' %}
         </div>
 
         <a href="{{ routes.all_products_collection_url }}" class="cart-page__continue">
@@ -73,7 +75,8 @@
   {% else %}
     <div class="cart-page__empty">
       <p class="cart-page__empty-text">{{ 'cart.empty' | t }}</p>
-      {% render 'button', label: 'cart.continue_shopping' | t, url: routes.all_products_collection_url, style: 'primary' %}
+      {% assign empty_shop_label = 'cart.continue_shopping' | t %}
+      {% render 'button', label: empty_shop_label, url: routes.all_products_collection_url, style: 'primary' %}
     </div>
   {% endif %}
 </section>

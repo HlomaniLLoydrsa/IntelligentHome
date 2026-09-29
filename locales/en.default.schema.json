@@ -90,7 +90,10 @@
     },
     "contact": {
       "name": "Contact",
-      "contact_info": "Contact information"
+      "contact_info": "Contact information",
+      "email": "Email",
+      "phone": "Phone",
+      "business_hours": "Business hours"
     },
     "about": {
       "name": "About",
@@ -100,6 +103,21 @@
     },
     "order_tracking": {
       "name": "Order tracking"
+    },
+    "help_centre": {
+      "name": "Help centre",
+      "card": "Help card"
+    },
+    "shipping_info": {
+      "name": "Shipping & delivery",
+      "method": "Method",
+      "time": "Delivery time",
+      "cost": "Cost",
+      "rate": "Shipping rate",
+      "show_table": "Show rates table"
+    },
+    "returns_info": {
+      "name": "Returns & refunds"
     }
   },
   "labels": {
@@ -127,6 +145,9 @@
     "color_surface_brand": "Brand surface",
     "columns_desktop": "Columns on desktop",
     "customer_account_menu": "Customer account menu",
+    "enable_filtering": "Enable product filtering",
+    "enable_filtering_info": "Filters are configured in Shopify admin under Search & Discovery.",
+    "related_count": "Number of recommendations",
     "description": "Description",
     "disclaimer": "Disclaimer",
     "drawer_menu": "Mobile drawer utility links",
@@ -164,7 +185,6 @@
     "related_products": "Related products",
     "returns_content": "Returns content",
     "review_text": "Review text",
-    "author": "Author",
     "secondary_cta": "Secondary button",
     "shipping_content": "Shipping content",
     "show_payment_icons": "Show payment icons",

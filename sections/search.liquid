@@ -14,7 +14,8 @@
           autocomplete="off"
           class="search-page__input"
         >
-        {% render 'button', label: 'search.submit' | t, type: 'submit', style: 'primary' %}
+        {% assign search_submit_label = 'search.submit' | t %}
+        {% render 'button', label: search_submit_label, type: 'submit', style: 'primary' %}
       </div>
     </form>
   </div>

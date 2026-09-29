@@ -110,8 +110,23 @@
         {% endfor %}
       {% else %}
         {% comment %} Fallback navigation when no menu is assigned {% endcomment %}
+        <a href="/" class="mobile-drawer__link">{{ 'mobile_menu.home' | t }}</a>
+        <div class="mobile-drawer__group">
+          <button type="button" class="mobile-drawer__group-toggle" aria-expanded="false">
+            <span>{{ 'mobile_menu.shop' | t }}</span>
+            <svg class="mobile-drawer__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="mobile-drawer__submenu" aria-hidden="true">
+            <a href="/collections/all" class="mobile-drawer__sublink mobile-drawer__sublink--all">{{ 'collections.all' | t }}</a>
+            <a href="/collections/kitchen" class="mobile-drawer__sublink">Kitchen</a>
+            <a href="/collections/cleaning" class="mobile-drawer__sublink">Cleaning</a>
+            <a href="/collections/bedroom" class="mobile-drawer__sublink">Bedroom</a>
+            <a href="/collections/living-room" class="mobile-drawer__sublink">Living Room</a>
+            <a href="/collections/bathroom" class="mobile-drawer__sublink">Bathroom</a>
+            <a href="/collections/smart-home" class="mobile-drawer__sublink">Smart Home</a>
+          </div>
+        </div>
         <a href="/collections" class="mobile-drawer__link">{{ 'collections.title' | t }}</a>
-        <a href="/collections/all" class="mobile-drawer__link">{{ 'collections.all' | t }}</a>
       {% endif %}
     </nav>
 
@@ -124,7 +139,10 @@
         <a href="/pages/about" class="mobile-drawer__utility-link">{{ 'mobile_menu.about' | t }}</a>
         <a href="/pages/faq" class="mobile-drawer__utility-link">{{ 'mobile_menu.faq' | t }}</a>
         <a href="/pages/contact" class="mobile-drawer__utility-link">{{ 'mobile_menu.contact' | t }}</a>
+        <a href="/pages/shipping" class="mobile-drawer__utility-link">{{ 'mobile_menu.shipping' | t }}</a>
+        <a href="/pages/returns" class="mobile-drawer__utility-link">{{ 'mobile_menu.returns' | t }}</a>
         <a href="/pages/track-order" class="mobile-drawer__utility-link">{{ 'mobile_menu.track_order' | t }}</a>
+        <a href="/pages/help" class="mobile-drawer__utility-link">{{ 'mobile_menu.help' | t }}</a>
       {% endif %}
     </div>
 

@@ -53,7 +53,11 @@
     "products_label": "products",
     "pagination": "Pagination",
     "empty": "No products in this collection yet.",
-    "continue_shopping": "Continue shopping"
+    "continue_shopping": "Continue shopping",
+    "apply_filters": "Apply filters",
+    "clear_all": "Clear all",
+    "min_price": "Min",
+    "max_price": "Max"
   },
   "customers": {
     "login": {
@@ -112,10 +116,15 @@
     "close_menu": "Close navigation menu"
   },
   "mobile_menu": {
+    "home": "Home",
+    "shop": "Shop",
     "about": "About us",
     "faq": "FAQ",
     "contact": "Contact",
+    "shipping": "Shipping & delivery",
+    "returns": "Returns & refunds",
     "track_order": "Track order",
+    "help": "Help centre",
     "view_all": "View all"
   },
   "sections": {
@@ -198,6 +207,24 @@
       "email": "Email address",
       "track": "Track order",
       "help_text": "You can find your order number in your confirmation email."
+    },
+    "help_centre": {
+      "name": "Help centre",
+      "title": "How can we help?",
+      "card": "Help card"
+    },
+    "shipping_info": {
+      "name": "Shipping & delivery",
+      "title": "Shipping & delivery",
+      "method": "Method",
+      "time": "Delivery time",
+      "cost": "Cost",
+      "rate": "Shipping rate",
+      "show_table": "Show rates table"
+    },
+    "returns_info": {
+      "name": "Returns & refunds",
+      "title": "Returns & refunds"
     }
   },
   "chat": {

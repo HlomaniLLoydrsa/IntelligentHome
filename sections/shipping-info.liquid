@@ -1,0 +1,104 @@
+<section class="info-page">
+  <div class="info-page__header">
+    <h1 class="info-page__title">{{ section.settings.heading | default: 'sections.shipping_info.title' | t }}</h1>
+    {% if section.settings.description != blank %}
+      <p class="info-page__description">{{ section.settings.description | escape }}</p>
+    {% endif %}
+  </div>
+
+  {% if section.settings.show_table %}
+    <div class="info-page__table-wrapper">
+      <table class="info-page__table">
+        <thead>
+          <tr>
+            <th>{{ 'sections.shipping_info.method' | t }}</th>
+            <th>{{ 'sections.shipping_info.time' | t }}</th>
+            <th>{{ 'sections.shipping_info.cost' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+            {% if block.type == 'shipping_rate' %}
+              <tr {{ block.shopify_attributes }}>
+                <td>{{ block.settings.method | escape }}</td>
+                <td>{{ block.settings.time | escape }}</td>
+                <td>{{ block.settings.cost | escape }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  <div class="info-page__content">
+    {% for block in section.blocks %}
+      {% if block.type == 'content_block' %}
+        <div class="info-page__block" {{ block.shopify_attributes }}>
+          {% if block.settings.title != blank %}
+            <h2>{{ block.settings.title | escape }}</h2>
+          {% endif %}
+          <div class="info-page__text">{{ block.settings.content }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .info-page { padding: var(--space-2xl) 0 var(--space-4xl); max-width: 48rem; margin: 0 auto; }
+  .info-page__header { margin-bottom: var(--space-2xl); }
+  .info-page__title { font-size: var(--text-4xl); margin: 0; color: var(--color-foreground); }
+  .info-page__description { font-size: var(--text-lg); color: var(--color-secondary); margin: var(--space-md) 0 0; line-height: 1.6; }
+  .info-page__table-wrapper { overflow-x: auto; margin-bottom: var(--space-2xl); }
+  .info-page__table { width: 100%; border-collapse: collapse; }
+  .info-page__table th { text-align: left; font-size: var(--text-sm); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-secondary); padding: var(--space-md); border-bottom: 2px solid var(--color-border); }
+  .info-page__table td { padding: var(--space-md); border-bottom: 1px solid var(--color-border); font-size: var(--text-base); color: var(--color-foreground); }
+  .info-page__block { margin-bottom: var(--space-2xl); }
+  .info-page__block h2 { font-size: var(--text-2xl); margin: 0 0 var(--space-md); color: var(--color-foreground); }
+  .info-page__text { font-size: var(--text-base); line-height: 1.8; color: var(--color-secondary); }
+  .info-page__text p { margin: 0 0 var(--space-md); }
+  @media (max-width: 767px) { .info-page__title { font-size: var(--text-3xl); } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:sections.shipping_info.name",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "t:labels.heading", "default": "Shipping & delivery" },
+    { "type": "textarea", "id": "description", "label": "t:labels.description", "default": "Everything you need to know about how and when your order arrives." },
+    { "type": "checkbox", "id": "show_table", "label": "t:sections.shipping_info.show_table", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "shipping_rate",
+      "name": "t:sections.shipping_info.rate",
+      "settings": [
+        { "type": "text", "id": "method", "label": "t:sections.shipping_info.method", "default": "Standard" },
+        { "type": "text", "id": "time", "label": "t:sections.shipping_info.time", "default": "3-7 business days" },
+        { "type": "text", "id": "cost", "label": "t:sections.shipping_info.cost", "default": "Free over $50" }
+      ]
+    },
+    {
+      "type": "content_block",
+      "name": "t:general.content",
+      "settings": [
+        { "type": "text", "id": "title", "label": "t:labels.title" },
+        { "type": "richtext", "id": "content", "label": "t:general.content" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.shipping_info.name",
+      "blocks": [
+        { "type": "shipping_rate", "settings": { "method": "Standard delivery", "time": "3-7 business days", "cost": "Free over $50, else $4.99" } },
+        { "type": "shipping_rate", "settings": { "method": "Express delivery", "time": "1-2 business days", "cost": "$9.99" } },
+        { "type": "shipping_rate", "settings": { "method": "International", "time": "7-14 business days", "cost": "Calculated at checkout" } },
+        { "type": "content_block", "settings": { "title": "Order processing", "content": "<p>Orders are processed within 1-2 business days. You'll receive a confirmation email with tracking details once your order ships.</p>" } },
+        { "type": "content_block", "settings": { "title": "Where we ship", "content": "<p>We ship worldwide. Delivery times and costs for international orders are calculated at checkout based on your location.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

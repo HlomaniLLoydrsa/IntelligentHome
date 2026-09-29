@@ -42,7 +42,8 @@
           <textarea id="contact-message" name="contact[body]" rows="5" required></textarea>
         </div>
 
-        {% render 'button', label: 'sections.contact.submit' | t, type: 'submit', style: 'primary', css_class: 'contact-page__submit-btn' %}
+        {% assign submit_label = 'sections.contact.submit' | t %}
+        {% render 'button', label: submit_label, type: 'submit', style: 'primary', css_class: 'contact-page__submit-btn' %}
       {% endform %}
     </div>
 
