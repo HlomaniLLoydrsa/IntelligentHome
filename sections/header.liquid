@@ -21,20 +21,26 @@
     </a>
 
     <nav class="header__nav" aria-label="{{ 'general.menu' | t }}">
-      {% for link in section.settings.menu.links %}
-        {% assign is_active = false %}
-        {% if request.path == link.url %}
-          {% assign is_active = true %}
-        {% endif %}
-        {% if link.url contains request.path %}
-          {% if request.path != '/' %}
+      {% if section.settings.menu != blank and section.settings.menu.links.size > 0 %}
+        {% for link in section.settings.menu.links %}
+          {% assign is_active = false %}
+          {% if request.path == link.url %}
             {% assign is_active = true %}
           {% endif %}
-        {% endif %}
-        <a href="{{ link.url }}" class="header__nav-link {% if is_active %}header__nav-link--active{% endif %}">
-          {{ link.title }}
-        </a>
-      {% endfor %}
+          <a href="{{ link.url }}" class="header__nav-link {% if is_active %}header__nav-link--active{% endif %}">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      {% else %}
+        {% comment %} Default navigation: pages first, then shop categories {% endcomment %}
+        <a href="{{ routes.root_url }}" class="header__nav-link {% if request.path == '/' %}header__nav-link--active{% endif %}">Home</a>
+        <a href="/pages/about" class="header__nav-link {% if request.path contains '/pages/about' %}header__nav-link--active{% endif %}">About</a>
+        <a href="{{ routes.all_products_collection_url }}" class="header__nav-link {% if request.path contains '/collections/all' %}header__nav-link--active{% endif %}">Shop</a>
+        <a href="/collections/kitchen" class="header__nav-link {% if request.path contains 'kitchen' %}header__nav-link--active{% endif %}">Kitchen</a>
+        <a href="/collections/cleaning" class="header__nav-link {% if request.path contains 'cleaning' %}header__nav-link--active{% endif %}">Cleaning</a>
+        <a href="/pages/faq" class="header__nav-link {% if request.path contains '/pages/faq' %}header__nav-link--active{% endif %}">FAQ</a>
+        <a href="/pages/contact" class="header__nav-link {% if request.path contains '/pages/contact' %}header__nav-link--active{% endif %}">Contact</a>
+      {% endif %}
     </nav>
 
     <div class="header__actions">
